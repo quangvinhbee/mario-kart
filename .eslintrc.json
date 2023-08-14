@@ -1,0 +1,27 @@
+{
+  "env": {
+    "node": true,
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:security/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
+    "next/core-web-vitals"
+  ],
+  "plugins": ["jest", "security", "prettier", "react", "react-hooks"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true,
+      "js": true
+    }
+  },
+  "rules": {
+    "func-names": "off",
+    "no-underscore-dangle": "off",
+    "consistent-return": "off"
+  }
+}

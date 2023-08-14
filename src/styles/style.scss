@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+}
+@import './base';
+@import './reset.scss';
+
+@layer components {
+  @import './buttons';
+  @import './form';
+  @import './dialog';
+}
+
+@layer utilities {
+  @import './utilities';
+}
+
+@import './lib/nprogress.scss';
+@import './custom';
+@import './layouts/main.scss';
+@import './components//custom-table.scss';
+@import './content';

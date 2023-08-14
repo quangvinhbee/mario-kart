@@ -1,0 +1,124 @@
+.flex-center {
+  @apply flex;
+  @apply justify-center;
+  @apply items-center;
+}
+
+.no-scrollbar {
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}
+
+.v-scrollbar {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-gray-300;
+    border-radius: 1px;
+  }
+}
+
+.h-scrollbar {
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-gray-300;
+    border-radius: 1px;
+  }
+}
+
+.box-shadow-white {
+  box-shadow: 0 0 0 2px white;
+}
+
+.image-wrapper {
+  box-sizing: border-box;
+  padding-top: 100%;
+  width: 100%;
+  height: 0;
+  position: relative;
+
+  &.ratio-16-9 {
+    padding-top: 56.25%;
+  }
+}
+.image-wrapper > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.image-wrapper.contain > img {
+  object-fit: contain;
+}
+.image-wrapper.circle > img,
+.image-wrapper.round > img {
+  @apply rounded-full;
+}
+.image-wrapper.radius > img {
+  @apply rounded;
+}
+
+.status {
+  @apply inline-flex;
+  @apply justify-center;
+  @apply items-center;
+  color: white;
+  white-space: nowrap;
+  border-radius: 20px;
+  font-size: 10px;
+  padding: 0 4px;
+  height: 20px;
+  font-weight: 600;
+  min-width: 72px;
+
+  &.primary {
+    @apply bg-primary;
+  }
+
+  &.accent {
+    @apply bg-accent;
+  }
+
+  &.warning {
+    @apply bg-warning;
+  }
+
+  &.success {
+    @apply bg-success;
+  }
+
+  &.danger {
+    @apply bg-danger;
+  }
+
+  &.default {
+    @apply bg-gray-500;
+  }
+}

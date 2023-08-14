@@ -1,0 +1,13 @@
+#main-layout {
+  .sidebar__toottip {
+    &--wrapper:hover &--content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    &--content {
+      transform: translateY(15px);
+      opacity: 0;
+      transition: all 150ms ease-in-out;
+    }
+  }
+}

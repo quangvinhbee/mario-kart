@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+html,
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, Helvetica, Arial,
+    sans-serif;
+  font-weight: 400;
+  scroll-behavior: smooth;
+  // @apply bg-[#141414];
+  @apply text-base;
+  @apply box-border;
+}
+
+@font-face {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Custom project-specific class here
+:root {
+  --color-primary-light: #ccb665;
+  --color-primary: #fec20e;
+  --color-primary-dark: #a06a0c;
+  --color-accent-light: #5694e1;
+  // --color-accent: #171717;
+  // --color-accent-dark: #161d30;
+
+  --secondary-color: #7366f0;
+  --bs-blue: #0d6efd;
+  --bs-indigo: #543ea4;
+  --bs-purple: #6f42c1;
+  --bs-pink: #943a4c;
+  --bs-red: #dc3545;
+  --bs-orange: #fd7e14;
+  --bs-yellow: #ffc107;
+  --bs-green: #198754;
+  --bs-teal: #20c997;
+  --bs-cyan: #0dcaf0;
+  --bs-white: #fff;
+  --bs-gray: #6c757d;
+  --bs-gray-dark: #343a40;
+  --bs-primary: #0d6efd;
+  --bs-secondary: #6c757d;
+  --bs-success: #198754;
+  --bs-info: #0dcaf0;
+  --bs-warning: #ffc107;
+  --bs-danger: #dc3545;
+  --bs-light: #f8f9fa;
+  --bs-dark: #212529;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+.main-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 94%;
+
+  @screen xs {
+    width: 93%;
+    max-width: none;
+  }
+  @screen sm {
+    width: 92%;
+    max-width: none;
+  }
+  @screen md {
+    width: 90%;
+    max-width: none;
+  }
+  @screen lg {
+    width: 88%;
+    @apply max-w-screen-lg;
+  }
+  @screen xl {
+    width: 86%;
+    @apply max-w-screen-xl;
+  }
+  @screen 2xl {
+    width: 84%;
+    @apply max-w-screen-xl;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: rgba(16, 16, 16, 1);
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 2px;
+  background: rgb(49, 49, 49);
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis; /* enables ellipsis */
+  white-space: nowrap; /* keeps the text in a single line */
+  overflow: hidden; /* keeps the element from overflowing its parent */
+}
