@@ -16,16 +16,19 @@
 .bowser {
   background: url(/assets/super-mario-kart/sprite-bowser.png);
   background-position: 0px;
+  background-repeat: no-repeat;
 }
 
 .dk {
   background: url(/assets/super-mario-kart/sprite-dk.png);
   background-position: 0px;
+  background-repeat: no-repeat;
 }
 
 .goomba {
   background: url(/assets/super-mario-kart/sprite-goomba.png);
   background-position: 0px;
+  background-repeat: no-repeat;
 }
 
 .luigi {
@@ -36,21 +39,25 @@
 .mario {
   background: url(/assets/super-mario-kart/sprite-mario.png);
   background-position: 0px;
+  background-repeat: no-repeat;
 }
 
 .peach {
   background: url(/assets/super-mario-kart/sprite-peach.png);
   background-position: 0px;
+  background-repeat: no-repeat;
 }
 
 .toad {
   background: url(/assets/super-mario-kart/sprite-toad.png);
   background-position: 0px;
+  background-repeat: no-repeat;
 }
 
 .yoshi {
   background: url(/assets/super-mario-kart/sprite-yoshi.png);
   background-position: 0px;
+  background-repeat: no-repeat;
 }
 
 .running {
@@ -73,35 +80,35 @@
 }
 
 .spin {
-  animation: spin infinite 2s 0s step-start;
+  animation: spin infinite 1s 0s step-start;
 
   @keyframes spin {
     0% {
-      background-position: 0;
+      background-position: 0 0;
     }
     11% {
-      background-position: -108px;
+      background-position: -108px 0;
     }
     22% {
-      background-position: -216px;
+      background-position: -216px 0;
     }
     33% {
-      background-position: -324px;
+      background-position: -324px 0;
     }
     44% {
-      background-position: -432px;
+      background-position: -432px 0;
     }
     55% {
-      background-position: -540px;
+      background-position: -540px 0;
     }
     66% {
-      background-position: -648px;
+      background-position: -648px 0;
     }
     77% {
-      background-position: -756px;
+      background-position: -756px 0;
     }
     88% {
-      background-position: -864px;
+      background-position: -864px 0;
     }
   }
 }

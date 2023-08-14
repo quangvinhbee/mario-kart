@@ -43,18 +43,18 @@ export const SuperMarioKart = () => {
         if (!p.ref.current) {
           continue
         }
-        const el = p.ref.current
-        const isRunning = el.classList.contains(cx('running'))
-        console.log(isRunning)
         const containerWidth = containerRef.current.offsetWidth
+        const el = p.ref.current
         const left = el.offsetLeft
+        if (left < -400) {
+          el.classList.remove(cx('spin'))
+          el.classList.add(cx('running'))
+        }
+        const isRunning = el.classList.contains(cx('running'))
         if (isRunning) {
           if (left - containerWidth > 200) {
             el.style.transitionDuration = '0ms'
             el.style.left = '-300px'
-          } else if (left < -400) {
-            el.classList.remove(cx('spin'))
-            el.classList.add(cx('running'))
           } else {
             const distance = p.speed
             el.style.transitionDuration = '150ms'
