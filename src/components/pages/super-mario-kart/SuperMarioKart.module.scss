@@ -80,7 +80,7 @@
 }
 
 .spin {
-  animation: spin infinite 1s 0s step-start;
+  animation: spin infinite 0.6s 0s step-start;
 
   @keyframes spin {
     0% {
