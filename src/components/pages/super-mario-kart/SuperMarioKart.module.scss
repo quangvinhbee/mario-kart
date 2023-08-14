@@ -54,9 +54,28 @@
 }
 
 .running {
-  animation: shake infinite 2s 0s step-start;
+  animation: shake infinite 0.2s 0s linear;
 
   @keyframes shake {
+    0% {
+      transform: translate(0, 4px);
+    }
+    25% {
+      transform: translate(0, 0px);
+    }
+    50% {
+      transform: translate(0, -4px);
+    }
+    100% {
+      transform: translate(0, 0px);
+    }
+  }
+}
+
+.spin {
+  animation: spin infinite 2s 0s step-start;
+
+  @keyframes spin {
     0% {
       background-position: 0;
     }
@@ -83,19 +102,6 @@
     }
     88% {
       background-position: -864px;
-    }
-  }
-}
-
-.spin {
-  animation: spin infinite 4s 0s linear;
-
-  @keyframes spin {
-    0% {
-      background-position: 0 bottom;
-    }
-    100% {
-      background-position: -775px bottom;
     }
   }
 }
