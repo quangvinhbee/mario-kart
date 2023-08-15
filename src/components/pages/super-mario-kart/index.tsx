@@ -1,10 +1,15 @@
-import { useEffect, useRef } from 'react'
-import classes from './SuperMarioKart.module.scss'
+import { updateOpenSoundSetting } from '@/redux/common/setting'
 import classNames from 'classnames/bind'
+import { useEffect, useRef } from 'react'
+import { BsFillVolumeMuteFill, BsFillVolumeUpFill } from 'react-icons/bs'
+import { useDispatch, useSelector } from 'react-redux'
+import classes from './SuperMarioKart.module.scss'
 
 const cx = classNames.bind(classes)
 
 export const SuperMarioKart = () => {
+  const openSound = useSelector((store: any) => store?.SettingCommonSlice.openSound)
+  const dispatch = useDispatch()
   const containerRef = useRef<HTMLDivElement>(null)
   const bowserRef = useRef<HTMLDivElement>(null)
   const dkRef = useRef<HTMLDivElement>(null)
@@ -14,6 +19,9 @@ export const SuperMarioKart = () => {
   const peachRef = useRef<HTMLDivElement>(null)
   const toadRef = useRef<HTMLDivElement>(null)
   const yochiRef = useRef<HTMLDivElement>(null)
+  const bgmRef = useRef<HTMLAudioElement>(null)
+  const clickCharacterEffectRef = useRef<HTMLAudioElement>(null)
+  const clickBgEffectRef = useRef<HTMLAudioElement>(null)
 
   const raceStatus = useRef([
     { name: 'luigi', ref: luigiRef, speed: 7, bottom: 108 },
@@ -26,7 +34,15 @@ export const SuperMarioKart = () => {
     { name: 'toad', ref: toadRef, speed: 4, bottom: 32 },
   ])
 
-  const handleClick = (index: number) => {
+  const handleToggleSound = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    dispatch(updateOpenSoundSetting(!openSound))
+  }
+
+  const handleClickCharacter = (index: number, e: React.MouseEvent) => {
+    e.stopPropagation()
+    e.persist()
+    clickCharacterEffectRef.current.play()
     if (raceStatus.current[index]) {
       const el = raceStatus.current[index].ref.current
       el.classList.remove(cx('running'))
@@ -71,8 +87,38 @@ export const SuperMarioKart = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (bgmRef.current) {
+      if (openSound) {
+        bgmRef.current.play()
+      } else {
+        bgmRef.current.pause()
+      }
+    }
+  }, [openSound])
+
+  useEffect(() => {
+    bgmRef.current = new Audio('/assets/super-mario-kart/IGN-presents-Museum-of-Mario.mp3')
+    clickCharacterEffectRef.current = new Audio('/assets/super-mario-kart/powerup5.wav')
+    clickBgEffectRef.current = new Audio('/assets/super-mario-kart/Hit_Hurt19.wav')
+
+    if (openSound) {
+      bgmRef.current.play()
+    }
+
+    bgmRef.current.addEventListener('ended', () => bgmRef.current.play())
+    return () => {
+      bgmRef.current.removeEventListener('ended', () => bgmRef.current.play())
+      bgmRef.current.pause()
+    }
+  }, [])
+
   return (
-    <div ref={containerRef} className={cx('background', 'relative h-full w-full overflow-hidden')}>
+    <div
+      ref={containerRef}
+      className={cx('background', 'relative h-full w-full overflow-hidden')}
+      onClick={() => clickBgEffectRef.current.play()}
+    >
       {raceStatus.current.map((item, i) => (
         <div
           ref={item.ref}
@@ -84,9 +130,19 @@ export const SuperMarioKart = () => {
           style={{
             bottom: item?.bottom + 'px',
           }}
-          onClick={() => handleClick(i)}
+          onClick={(e) => handleClickCharacter(i, e)}
         />
       ))}
+      <div
+        className="absolute bottom-[16px] right-[16px] flex h-[40px] w-[40px] cursor-pointer items-center justify-center bg-orange-600"
+        onClick={handleToggleSound}
+      >
+        {openSound ? (
+          <BsFillVolumeUpFill className="text-[24px] text-white" />
+        ) : (
+          <BsFillVolumeMuteFill className="text-[24px] text-white" />
+        )}
+      </div>
     </div>
   )
 }

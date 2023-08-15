@@ -3,6 +3,7 @@ import { Action, createSlice } from '@reduxjs/toolkit'
 export interface SettingCommon {
   lang: string
   theme: string
+  openSound: boolean
 }
 
 interface IUpdateThemeAction extends Action {
@@ -12,6 +13,7 @@ interface IUpdateThemeAction extends Action {
 const initialState: SettingCommon = {
   lang: 'en',
   theme: 'dark',
+  openSound: false,
 }
 
 export const SettingCommonSlice = createSlice({
@@ -30,10 +32,17 @@ export const SettingCommonSlice = createSlice({
         theme: action.payload,
       }
     },
+    updateOpenSoundSetting: (state: SettingCommon, action: any) => {
+      return {
+        ...state,
+        openSound: action.payload,
+      }
+    },
   },
 })
 
-export const { changeLanguageSetting, updateThemeSetting } = SettingCommonSlice.actions
+export const { changeLanguageSetting, updateThemeSetting, updateOpenSoundSetting } =
+  SettingCommonSlice.actions
 
 export const namespace = 'SettingCommonSlice'
 
