@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import useScreen from '../../../lib/hooks/useScreen'
-// import DefaultHead from '../DefaultHead'
-import { Footer } from './Footer'
-import { Header } from './Header'
 
+import { AnimatePresence } from 'framer-motion'
+import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import 'swiper/css'
 import { changeLanguageSetting, updateThemeSetting } from '../../../redux/common/setting'
 import DefaultHead from '../DefaultHead'
 import SidebarDesktop from './Sidebar/SidebarDesktop'
-import SidebarMobile from './Sidebar/SidebarMobile'
+import PageTransition from './PageTransition'
+import { usePrevious } from '@/lib/hooks/usePrevious'
 
 declare global {
   interface Window {
@@ -19,12 +19,15 @@ declare global {
 
 export function MainLayout({ ...props }) {
   const { coin } = props
+  const router = useRouter()
   const isMd = useScreen('md')
   const isLg = useScreen('lg')
   const dispatch = useDispatch()
   const promote = useSelector((state: any) => state.CoinCommonSlice)
   const [isOpenMenu, setOpenMenu] = useState(false)
   const [isExpandSidebar, setExpandSidebar] = useState(true)
+  // const [previousPathname, setPreviousPathname] = useState('')
+  const previousPathName = usePrevious(router.pathname)
 
   const getLanguage = async () => {
     if (typeof window != 'undefined') {
@@ -42,9 +45,9 @@ export function MainLayout({ ...props }) {
     getLanguage()
   }, [])
 
-  useEffect(() => {
-    setExpandSidebar(isLg)
-  }, [isLg])
+  // useEffect(() => {
+  //   setPreviousPathname(router.pathname)
+  // }, [router.pathname])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -62,21 +65,25 @@ export function MainLayout({ ...props }) {
     <div id="main-layout" className="w-full">
       <DefaultHead />
       <div className="relative flex min-h-screen w-full">
-        <div className="hidden w-[80px] md:block">
+        <div className="hidden w-[100px] md:block">
           <SidebarDesktop
             isExpand={isExpandSidebar}
             onToggleExpand={() => setExpandSidebar((state) => !state)}
             isOpenMenu={isOpenMenu}
           />
         </div>
-        <div className="w-full md:w-[calc(100%-80px)]">
+        <div className="w-full md:w-[calc(100%-100px)]">
           {/* <Header
             onClickMenu={() => {
               setOpenMenu(!isOpenMenu)
             }}
             isOpenMenu={isOpenMenu}
           /> */}
-          <div className="relative h-screen w-full">{props.children}</div>
+          <AnimatePresence initial={false} mode="popLayout">
+            <div key={router.pathname} className="relative h-screen w-full">
+              <PageTransition previousPathname={previousPathName}>{props.children}</PageTransition>
+            </div>
+          </AnimatePresence>
           {/* <SidebarMobile isOpen={isOpenMenu} onClose={() => setOpenMenu(false)} /> */}
           {/* <Footer /> */}
         </div>

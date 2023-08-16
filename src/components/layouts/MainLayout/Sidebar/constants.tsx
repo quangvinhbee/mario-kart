@@ -4,17 +4,21 @@ export const MENUS = [
   {
     label: 'Start',
     labelPosition: 'top',
+    onlyShowOnActive: false,
     icon: '/assets/main-layout/ic-sidebar-1.png',
     iconActive: '/assets/main-layout/ic-sidebar-1-active.png',
     path: '/',
   },
   {
+    label: 'arcade era',
+    labelPosition: 'bottom',
+    onlyShowOnActive: true,
     icon: '/assets/main-layout/ic-sidebar-2.png',
     iconActive: '/assets/main-layout/ic-sidebar-2-active.png',
     children: [
       {
         label: 'Donkey kong',
-        path: '/mario-bros',
+        path: '/donkey-kong',
       },
       {
         label: 'Mario bros',
@@ -23,6 +27,9 @@ export const MENUS = [
     ],
   },
   {
+    label: '8 bit era',
+    labelPosition: 'bottom',
+    onlyShowOnActive: true,
     icon: '/assets/main-layout/ic-sidebar-3.png',
     iconActive: '/assets/main-layout/ic-sidebar-3-active.png',
     children: [
@@ -45,6 +52,9 @@ export const MENUS = [
     ],
   },
   {
+    label: '16 bit era',
+    labelPosition: 'bottom',
+    onlyShowOnActive: true,
     icon: '/assets/main-layout/ic-sidebar-4.png',
     iconActive: '/assets/main-layout/ic-sidebar-4-active.png',
     children: [
@@ -63,6 +73,9 @@ export const MENUS = [
     ],
   },
   {
+    label: '3d era',
+    labelPosition: 'bottom',
+    onlyShowOnActive: true,
     icon: '/assets/main-layout/ic-sidebar-5.png',
     iconActive: '/assets/main-layout/ic-sidebar-5-active.png',
     children: [
@@ -85,6 +98,9 @@ export const MENUS = [
     ],
   },
   {
+    label: 'modern era',
+    labelPosition: 'bottom',
+    onlyShowOnActive: true,
     icon: '/assets/main-layout/ic-sidebar-6.png',
     iconActive: '/assets/main-layout/ic-sidebar-6-active.png',
     children: [
@@ -101,6 +117,7 @@ export const MENUS = [
   {
     label: 'Finish',
     labelPosition: 'bottom',
+    onlyShowOnActive: false,
     icon: '/assets/main-layout/ic-sidebar-7.png',
     iconActive: '/assets/main-layout/ic-sidebar-7-active.png',
     path: '/finish',

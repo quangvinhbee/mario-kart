@@ -117,7 +117,7 @@ export const SuperMarioKart = () => {
     <div
       ref={containerRef}
       className={cx('background', 'relative h-full w-full overflow-hidden')}
-      onClick={() => clickBgEffectRef.current.play()}
+      // onClick={() => clickBgEffectRef.current.play()}
     >
       {raceStatus.current.map((item, i) => (
         <div
