@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { MainLayout } from '@/components/layouts/MainLayout'
-import HomePage from '@/components/pages/homepage'
 
 const Page = () => {
   return (

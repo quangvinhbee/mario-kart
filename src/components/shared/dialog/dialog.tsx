@@ -118,9 +118,8 @@ export function Dialog({
 
   let el = (
     <div
-      className={`dialog-wrapper ${wrapperClass} ${isSlideFromBottom ? 'bottom-mode' : ''} ${
-        isMobile ? 'mobile' : ''
-      }`}
+      className={`dialog-wrapper ${wrapperClass} ${isSlideFromBottom ? 'bottom-mode' : ''} ${isMobile ? 'mobile' : ''
+        }`}
       style={{ ...style }}
       onMouseDown={(e) => {
         e.stopPropagation()
@@ -136,27 +135,25 @@ export function Dialog({
       onClick={(e) => e.stopPropagation()}
     >
       <div
-        className={`dialog-overlay ${overlayClass} ${
-          props.isOpen ? 'animate-emerge' : 'animate-fade'
-        } ${mobileSizeMode ? '' : ''}`}
+        className={`dialog-overlay ${overlayClass} ${props.isOpen ? 'animate-emerge' : 'animate-fade'
+          } ${mobileSizeMode ? '' : ''}`}
         style={{
           backgroundColor: 'rgba(0,0,0,.32)',
         }}
       ></div>
       <div
-        className={`dialog ${dialogClass} ${extraDialogClass} ${
-          props.isOpen
+        className={`dialog ${dialogClass} ${extraDialogClass} ${props.isOpen
+          ? props.openAnimation
             ? props.openAnimation
-              ? props.openAnimation
-              : isSlideFromBottom
+            : isSlideFromBottom
               ? 'animate-slide-in-bottom'
               : 'animate-scale-up'
-            : props.closeAnimation
+          : props.closeAnimation
             ? props.closeAnimation
             : isSlideFromBottom
-            ? 'animate-slide-out-bottom'
-            : 'animate-scale-down'
-        }  ${mobileSizeMode ? 'max-w-lg' : ''}`}
+              ? 'animate-slide-out-bottom'
+              : 'animate-scale-down'
+          }  ${mobileSizeMode ? 'max-w-lg' : ''}`}
         style={{ width, maxWidth: mobileSizeMode ? undefined : maxWidth }}
         onMouseDown={(e) => {
           e.stopPropagation()
