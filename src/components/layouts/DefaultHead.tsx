@@ -26,11 +26,11 @@ export function DefaultHead(props: any) {
         <title>
           {coin?.name
             ? coin?.name +
-              `${Number(coin?.change24h) < 0 ? ' ▼' : ' ▲'}` +
-              coin?.change24h +
-              '% ' +
-              ' | XSpace - The best platform for crypto investors'
-            : `XSpace - The best platform for crypto investors`}
+            `${Number(coin?.change24h) < 0 ? ' ▼' : ' ▲'}` +
+            coin?.change24h +
+            '% ' +
+            ' |'
+            : `Mario Cart`}
         </title>
         <meta
           name="viewport"
@@ -42,14 +42,14 @@ export function DefaultHead(props: any) {
                         img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
                         style-src  'self' 'unsafe-inline' *"
         ></meta>
-        <meta name="image" content={coin?.logo ? coin?.logo : '/xspace.jpg'} />
-        <meta name="og:image" content={coin?.logo ? coin?.logo : '/xspace.jpg'} />
+        <meta name="image" content={coin?.logo ? coin?.logo : ''} />
+        <meta name="og:image" content={coin?.logo ? coin?.logo : ''} />
         <meta
           name="description"
           content={
             coin?.description
               ? coin?.description
-              : 'Xspace provides coin ranking and statistics services, trading bots, marketing, web3 development and blockchain services to help both investors and project builders make money together.'
+              : ''
           }
         />
         <meta
@@ -57,7 +57,7 @@ export function DefaultHead(props: any) {
           content={
             coin?.description
               ? coin?.description
-              : 'Xspace provides coin ranking and statistics services, trading bots, marketing, web3 development and blockchain services to help both investors and project builders make money together.'
+              : ''
           }
         />
         <link rel="icon" type="image/png" href={'/favicon.png'} />

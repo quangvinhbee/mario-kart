@@ -65,14 +65,14 @@ export function MainLayout({ ...props }) {
     <div id="main-layout" className="w-full">
       <DefaultHead />
       <div className="relative flex min-h-screen w-full">
-        <div className="hidden w-[100px] md:block">
+        {/* <div className="hidden w-[100px] md:block">
           <SidebarDesktop
             isExpand={isExpandSidebar}
             onToggleExpand={() => setExpandSidebar((state) => !state)}
             isOpenMenu={isOpenMenu}
           />
-        </div>
-        <div className="w-full md:w-[calc(100%-100px)]">
+        </div> */}
+        <div className="w-full md:w-[calc(100%)]">
           {/* <Header
             onClickMenu={() => {
               setOpenMenu(!isOpenMenu)

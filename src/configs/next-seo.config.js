@@ -1,32 +1,32 @@
 export default {
-  title: 'XSpace - The best platform for crypto investors',
+  title: 'Mario Cart',
   titleTemplate: '%s',
   canonical: '',
-  description: `Description, og:description: We provide a full services platform for crypto investors and project builders like coin statistics and ranking, crypto trading bots, project promotions. We earn together!`,
+  description: `Mario Cart`,
   additionalMetaTags: [
     {
       name: 'keywords',
-      content: 'XSpace - The best platform for crypto investors',
+      content: 'Mario Cart',
     },
   ],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: '',
-    site_name: 'XSpace - The best platform for crypto investors',
+    site_name: 'Mario Cart',
     images: [
       {
         url: '/images/image-seo.jpg',
         width: 800,
         height: 600,
-        alt: 'XSpace - The best platform for crypto investors',
+        alt: 'Mario Cart',
         type: 'image/*',
       },
       {
         url: '/images/image-seo.jpg',
         width: 900,
         height: 800,
-        alt: 'XSpace - The best platform for crypto investors Second',
+        alt: 'Mario Cart',
         type: 'image/*',
       },
     ],

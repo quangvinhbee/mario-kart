@@ -1,7 +1,8 @@
 import { MainLayout } from '@/components/layouts/MainLayout'
+import { SuperMarioKart } from '@/components/pages/super-mario-kart'
 
 const Page = () => {
-  return <section className="p-4">Home</section>
+  return <SuperMarioKart />
 }
 
 Page.Layout = MainLayout
