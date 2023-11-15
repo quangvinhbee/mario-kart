@@ -1,8 +1,11 @@
+import { shortenAddress } from '@/lib/helpers/utils'
 import { updateOpenSoundSetting } from '@/redux/common/setting'
+import { useWeb3Modal } from '@web3modal/react'
 import classNames from 'classnames/bind'
 import { useEffect, useRef, useState } from 'react'
 import { BsFillVolumeMuteFill, BsFillVolumeUpFill } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
+import { useAccount } from 'wagmi'
 import { PreviewTitle } from './PreviewTitle'
 import { Race } from './Race'
 import classes from './SuperMarioKart.module.scss'
@@ -23,6 +26,8 @@ console.log('winRacerIndex', winRacerIndex)
 export const SuperMarioKart = () => {
   const openSound = useSelector((store: any) => store?.SettingCommonSlice.openSound)
   const dispatch = useDispatch()
+  const { open } = useWeb3Modal()
+  const { address } = useAccount()
   const [activeScreen, setActiveScreen] = useState(RaceStatus.Preview)
   const containerRef = useRef<HTMLDivElement>(null)
   const bgmRef = useRef<HTMLAudioElement>(null)
@@ -84,6 +89,12 @@ export const SuperMarioKart = () => {
         'relative h-full w-full overflow-hidden'
       )}
     >
+      <button
+        className="absolute top-[16px] right-[16px] h-[40px] cursor-pointer whitespace-nowrap rounded-[16px] border-2 border-black bg-red-500 px-[16px] text-[18px] font-semibold shadow transition-all active:translate-y-[4px]"
+        onClick={() => open()}
+      >
+        {address ? shortenAddress(address) : 'Connect Wallet'}
+      </button>
       {activeScreen === RaceStatus.Preview && (
         <PreviewTitle containerRef={containerRef} onStart={handleStart} />
       )}
