@@ -79,6 +79,7 @@ module.exports = {
         // body: ['Open Sans', 'sans-serif'],
         body: ['hk_grotesk', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
+        arcade: ['ARCADE CLASSIC', 'sans-serif'],
       },
       // boxShadow: (theme) => {
       //   const colors = {

@@ -2,6 +2,7 @@
   background: #ffff80 url(/assets/super-mario-kart/background.png);
   background-repeat: repeat-x;
   animation: bg-loop infinite 4s 0s linear;
+  animation-play-state: paused;
 
   @keyframes bg-loop {
     0% {
@@ -11,6 +12,10 @@
       background-position: -775px bottom;
     }
   }
+}
+
+.background-running {
+  animation-play-state: running;
 }
 
 .bowser {
