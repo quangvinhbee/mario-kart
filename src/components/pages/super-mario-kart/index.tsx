@@ -90,7 +90,7 @@ export const SuperMarioKart = () => {
       )}
     >
       <button
-        className="absolute top-[16px] right-[16px] h-[40px] cursor-pointer whitespace-nowrap rounded-[16px] border-2 border-black bg-red-500 px-[16px] text-[18px] font-semibold shadow transition-all active:translate-y-[4px]"
+        className="absolute top-[16px] right-[16px] z-[50] h-[40px] cursor-pointer whitespace-nowrap rounded-[16px] border-2 border-black bg-red-500 px-[16px] text-[18px] font-semibold shadow transition-all active:translate-y-[4px]"
         onClick={() => open()}
       >
         {address ? shortenAddress(address) : 'Connect Wallet'}
