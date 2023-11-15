@@ -66,17 +66,17 @@
 }
 
 .running {
-  animation: shake infinite 0.2s 0s linear;
+  animation: shake infinite 0.3s 0s linear;
 
   @keyframes shake {
     0% {
-      transform: translate(0, 4px);
+      transform: translate(0, 3px);
     }
     25% {
       transform: translate(0, 0px);
     }
     50% {
-      transform: translate(0, -4px);
+      transform: translate(0, -3px);
     }
     100% {
       transform: translate(0, 0px);
