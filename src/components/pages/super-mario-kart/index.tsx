@@ -16,6 +16,10 @@ export enum RaceStatus {
   RaceEnded,
 }
 
+const winRacerIndex = Math.floor(Math.random() * 3)
+
+console.log('winRacerIndex', winRacerIndex)
+
 export const SuperMarioKart = () => {
   const openSound = useSelector((store: any) => store?.SettingCommonSlice.openSound)
   const dispatch = useDispatch()
@@ -24,8 +28,6 @@ export const SuperMarioKart = () => {
   const bgmRef = useRef<HTMLAudioElement>(null)
   const clickCharacterEffectRef = useRef<HTMLAudioElement>(null)
   const clickBgEffectRef = useRef<HTMLAudioElement>(null)
-
-  const winRacerIndex = 2
 
   const handleToggleSound = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -91,7 +93,7 @@ export const SuperMarioKart = () => {
         <Race raceStatus={activeScreen} winRacerIndex={winRacerIndex} onEndRace={handleEndRace} />
       )}
       {activeScreen === RaceStatus.RaceEnded && (
-        <div className="top-30px absolute left-0 top-[50px] w-full text-center font-arcade text-[50px] font-semibold">
+        <div className="top-30px absolute left-0 top-[70px] w-full text-center font-arcade text-[50px] font-semibold">
           {winRacerIndex} WON
         </div>
       )}

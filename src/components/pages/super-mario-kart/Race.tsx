@@ -45,14 +45,13 @@ export const Race: FC<RaceProps> = (props) => {
 
         if (timeRemaining.current > 0) {
           const random = Math.random()
-          let percentTransition = (((95 - percent) * 1.2) / timeRemaining.current) * random
+          let percentTransition = (((95 - percent) * 1.15) / timeRemaining.current) * random
           if (timeRemaining.current < 5) {
             if (i === winRacerIndex) {
               percentTransition = (100 - percent) / timeRemaining.current
             }
           }
           const distance = Math.round((containerWidth / 100) * percentTransition)
-          console.log(racers.current[i].name, left, percentTransition, distance)
           el.style.transitionDuration = TIME_INTERVAL + 'ms'
           el.style.left = left + distance + 'px'
         } else {
@@ -63,13 +62,6 @@ export const Race: FC<RaceProps> = (props) => {
       }
       if (raceStatus === RaceStatus.RaceRunning && timeRemaining.current > 0) {
         containerRef.current.style.transitionDuration = TIME_INTERVAL + 'ms'
-        console.log(
-          containerRef.current.offsetLeft,
-          containerWidth - window.innerWidth + 50,
-          1 - timeRemaining.current / TOTAL_STEP,
-          -(containerWidth - window.innerWidth + 50) * (1 - timeRemaining.current / TOTAL_STEP) +
-            'px'
-        )
         containerRef.current.style.left =
           -(containerWidth - window.innerWidth + 50) * (1 - timeRemaining.current / TOTAL_STEP) +
           'px'
@@ -99,7 +91,7 @@ export const Race: FC<RaceProps> = (props) => {
           className={cx(
             item?.name,
             raceStatus === RaceStatus.RaceWaiting ? '' : 'running',
-            'absolute left-[2%] h-[93px] w-[100px] cursor-pointer transition-all ease-[cubic-bezier(0.24,0.07,0.78,1)]'
+            'absolute left-[2%] h-[93px] w-[100px] cursor-pointer transition-all ease-[cubic-bezier(0.63,0.46,0.61,0.76)]'
           )}
           style={{
             bottom: item?.bottom + 'px',
