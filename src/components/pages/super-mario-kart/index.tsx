@@ -31,7 +31,6 @@ export const SuperMarioKart = () => {
   const [activeScreen, setActiveScreen] = useState(RaceStatus.Preview)
   const containerRef = useRef<HTMLDivElement>(null)
   const bgmRef = useRef<HTMLAudioElement>(null)
-  const clickCharacterEffectRef = useRef<HTMLAudioElement>(null)
   const clickBgEffectRef = useRef<HTMLAudioElement>(null)
 
   const handleToggleSound = (e: React.MouseEvent) => {
@@ -64,7 +63,6 @@ export const SuperMarioKart = () => {
 
   useEffect(() => {
     bgmRef.current = new Audio('/assets/super-mario-kart/IGN-presents-Museum-of-Mario.mp3')
-    clickCharacterEffectRef.current = new Audio('/assets/super-mario-kart/powerup5.wav')
     clickBgEffectRef.current = new Audio('/assets/super-mario-kart/Hit_Hurt19.wav')
 
     if (openSound) {

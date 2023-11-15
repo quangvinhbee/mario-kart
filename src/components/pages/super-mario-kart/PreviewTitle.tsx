@@ -80,6 +80,10 @@ export const PreviewTitle: FC<PreviewTitleProps> = (props) => {
     }
   }, [])
 
+  useEffect(() => {
+    clickCharacterEffectRef.current = new Audio('/assets/super-mario-kart/powerup5.wav')
+  }, [])
+
   return (
     <>
       <div className="absolute top-[150px] left-[50%] translate-x-[-50%]">
