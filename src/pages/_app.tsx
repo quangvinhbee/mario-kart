@@ -23,6 +23,7 @@ import store, { persistor } from '../redux/store'
 import { Web3Modal } from '@web3modal/react'
 
 import '../styles/style.scss'
+import { MarioProvider } from '@/providers/game-provider'
 
 declare global {
   interface Window {
@@ -74,26 +75,28 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
             <QueryClientProvider client={new QueryClient()}>
               <PersistGate persistor={persistor}>
                 {() => (
-                  <OverrideMuiTheme>
-                    <ThemeWrapper>
-                      <I18NextWrapper>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                          <Layout {...layoutProps}>
-                            <Component {...pageProps} />
-                          </Layout>
-                          <Toaster
-                            position="bottom-right"
-                            toastOptions={{
-                              style: {
-                                background: '#333',
-                                color: '#fff',
-                              },
-                            }}
-                          />
-                        </LocalizationProvider>
-                      </I18NextWrapper>
-                    </ThemeWrapper>
-                  </OverrideMuiTheme>
+                  <MarioProvider>
+                    <OverrideMuiTheme>
+                      <ThemeWrapper>
+                        <I18NextWrapper>
+                          <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <Layout {...layoutProps}>
+                              <Component {...pageProps} />
+                            </Layout>
+                            <Toaster
+                              position="bottom-right"
+                              toastOptions={{
+                                style: {
+                                  background: '#333',
+                                  color: '#fff',
+                                },
+                              }}
+                            />
+                          </LocalizationProvider>
+                        </I18NextWrapper>
+                      </ThemeWrapper>
+                    </OverrideMuiTheme>
+                  </MarioProvider>
                 )}
               </PersistGate>
             </QueryClientProvider>

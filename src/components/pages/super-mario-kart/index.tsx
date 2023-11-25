@@ -25,6 +25,7 @@ console.log('winRacerIndex', winRacerIndex)
 
 export const SuperMarioKart = () => {
   const openSound = useSelector((store: any) => store?.SettingCommonSlice.openSound)
+  const END_POINT = process.env.NEXT_PUBLIC_API_URL
   const dispatch = useDispatch()
   const { open } = useWeb3Modal()
   const { address } = useAccount()
@@ -51,6 +52,13 @@ export const SuperMarioKart = () => {
     setActiveScreen(RaceStatus.RaceEnded)
   }
 
+  const getLogin = () => {
+    try {
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+
   useEffect(() => {
     if (bgmRef.current) {
       if (openSound) {
@@ -75,6 +83,8 @@ export const SuperMarioKart = () => {
       bgmRef.current.pause()
     }
   }, [])
+
+  useEffect(() => {}, [address])
 
   return (
     <div
