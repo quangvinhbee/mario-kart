@@ -80,6 +80,7 @@ module.exports = {
         body: ['hk_grotesk', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
         arcade: ['ARCADE CLASSIC', 'sans-serif'],
+        retro: ['Retro Computer', 'sans-serif'],
       },
       // boxShadow: (theme) => {
       //   const colors = {

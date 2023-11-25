@@ -1,10 +1,10 @@
-import { MainLayout } from '@/components/layouts/MainLayout'
-import { SuperMarioKart } from '@/components/pages/super-mario-kart'
+import { GameLayout } from '@/components/layouts/GameLayout'
+import { HomePage } from '@/components/pages/home'
 
 const Page = () => {
-  return <SuperMarioKart />
+  return <HomePage />
 }
 
-Page.Layout = MainLayout
+Page.Layout = GameLayout
 
 export default Page

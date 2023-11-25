@@ -385,7 +385,7 @@ export function MarioProvider(props: any) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        wallet: userAddress.toLowerCase(),
+        wallet: userAddress?.toLowerCase(),
       }),
     })
     const nonce_data = await req.json()
@@ -430,12 +430,12 @@ export function MarioProvider(props: any) {
   }
 
   useEffect(() => {
-    getData()
-    if (isConnected) {
-      getData()
-      getBalanceXWizard()
-      refreshBalance()
-    }
+    // getData()
+    // if (isConnected) {
+    //   getData()
+    //   getBalanceXWizard()
+    //   refreshBalance()
+    // }
   }, [isConnected, address])
   return (
     <MarioContext.Provider

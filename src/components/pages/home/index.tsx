@@ -1,16 +1,11 @@
-import { shortenAddress } from '@/lib/helpers/utils'
+import { RacePreview } from '@/components/common/RacePreview'
 import { updateOpenSoundSetting } from '@/redux/common/setting'
 import { useWeb3Modal } from '@web3modal/react'
-import classNames from 'classnames/bind'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-import { BsFillVolumeMuteFill, BsFillVolumeUpFill } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAccount } from 'wagmi'
-import { PreviewTitle } from './PreviewTitle'
-import { Race } from './Race'
-import classes from './SuperMarioKart.module.scss'
-
-const cx = classNames.bind(classes)
 
 export enum RaceStatus {
   Preview,
@@ -23,7 +18,7 @@ const winRacerIndex = Math.floor(Math.random() * 3)
 
 console.log('winRacerIndex', winRacerIndex)
 
-export const SuperMarioKart = () => {
+export const HomePage = () => {
   const openSound = useSelector((store: any) => store?.SettingCommonSlice.openSound)
   const END_POINT = process.env.NEXT_PUBLIC_API_URL
   const dispatch = useDispatch()
@@ -87,46 +82,23 @@ export const SuperMarioKart = () => {
   useEffect(() => {}, [address])
 
   return (
-    <div
-      ref={containerRef}
-      className={cx(
-        'background',
-        [RaceStatus.Preview, RaceStatus.RaceRunning].includes(activeScreen)
-          ? 'background-running'
-          : '',
-        'relative h-screen w-full overflow-hidden'
-      )}
-    >
-      {/* <button
-        className="absolute top-[16px] right-[16px] z-[50] h-[40px] cursor-pointer whitespace-nowrap rounded-[16px] border-2 border-black bg-red-500 px-[16px] text-[18px] font-semibold shadow transition-all active:translate-y-[4px]"
-        onClick={() => open()}
-      >
-        {address ? shortenAddress(address) : 'Connect Wallet'}
-      </button> */}
-      {activeScreen === RaceStatus.Preview && (
-        <PreviewTitle containerRef={containerRef} onStart={handleStart} />
-      )}
-      {[RaceStatus.RaceWaiting, RaceStatus.RaceRunning, RaceStatus.RaceEnded].includes(
-        activeScreen
-      ) && (
-        <Race raceStatus={activeScreen} winRacerIndex={winRacerIndex} onEndRace={handleEndRace} />
-      )}
-      {activeScreen === RaceStatus.RaceEnded && (
-        <div className="top-30px absolute left-0 top-[70px] w-full text-center font-arcade text-[50px] font-semibold">
-          {winRacerIndex} WON
-        </div>
-      )}
-
-      <div
-        className="absolute bottom-[16px] right-[16px] flex h-[40px] w-[40px] cursor-pointer items-center justify-center bg-orange-600"
-        onClick={handleToggleSound}
-      >
-        {openSound ? (
-          <BsFillVolumeUpFill className="text-[24px] text-white" />
-        ) : (
-          <BsFillVolumeMuteFill className="text-[24px] text-white" />
-        )}
+    <>
+      <div className="fixed inset-0">
+        <RacePreview />
       </div>
-    </div>
+      <div className="pointer-events-none relative flex w-full flex-col items-center pt-[80px]">
+        <Image className="" src="/assets/game/banner.png" alt="" width={646} height={432} />
+        <div className="pointer-events-auto translate-y-[-100%]">
+          <Link href="/play">
+            <img className="cursor-pointer" src="/assets/game/button-play.png" alt="" />
+          </Link>
+          <Link href="/help">
+            <a className="mt-[4px] block text-center uppercase underline underline-offset-2">
+              How to play
+            </a>
+          </Link>
+        </div>
+      </div>
+    </>
   )
 }
