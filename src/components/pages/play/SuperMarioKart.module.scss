@@ -1,0 +1,66 @@
+.bowser {
+  background: url(/assets/super-mario-kart/sprite-bowser.png);
+  background-position: 0px;
+  background-repeat: no-repeat;
+}
+
+.dk {
+  background: url(/assets/super-mario-kart/sprite-dk.png);
+  background-position: 0px;
+  background-repeat: no-repeat;
+}
+
+.goomba {
+  background: url(/assets/super-mario-kart/sprite-goomba.png);
+  background-position: 0px;
+  background-repeat: no-repeat;
+}
+
+.luigi {
+  background: url(/assets/super-mario-kart/sprite-luigi.png);
+  background-position: 0px;
+}
+
+.mario {
+  background: url(/assets/super-mario-kart/sprite-mario.png);
+  background-position: 0px;
+  background-repeat: no-repeat;
+}
+
+.peach {
+  background: url(/assets/super-mario-kart/sprite-peach.png);
+  background-position: 0px;
+  background-repeat: no-repeat;
+}
+
+.toad {
+  background: url(/assets/super-mario-kart/sprite-toad.png);
+  background-position: 0px;
+  background-repeat: no-repeat;
+}
+
+.yoshi {
+  background: url(/assets/super-mario-kart/sprite-yoshi.png);
+  background-position: 0px;
+  background-repeat: no-repeat;
+}
+
+
+.running {
+  animation: shake infinite 0.3s 0s linear;
+
+  @keyframes shake {
+    0% {
+      transform: translate(0, 3px);
+    }
+    25% {
+      transform: translate(0, 0px);
+    }
+    50% {
+      transform: translate(0, -3px);
+    }
+    100% {
+      transform: translate(0, 0px);
+    }
+  }
+}

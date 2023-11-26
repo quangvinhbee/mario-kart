@@ -1,10 +1,8 @@
-import { ClickAwayListener } from '@mui/material'
 import { useWeb3Modal } from '@web3modal/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NumericFormat } from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAccount } from 'wagmi'
 
@@ -33,10 +31,14 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
 
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-500">
+      <div className="fixed inset-x-0 top-0 z-[50]">
         <div className="container flex items-center justify-between">
           <div className="flex items-center space-x-[32px]">
-            <Image src="/assets/game/logo.png" alt="" width={157} height={91} />
+            <Link href={'/'}>
+              <a>
+                <Image src="/assets/game/logo.png" alt="" width={157} height={91} />
+              </a>
+            </Link>
             <Link href={'#'}>
               <a className="flex items-center space-x-[8px]" target="_blank">
                 <img className="w-[32px]" src="/assets/game/ic-arrow-right.png" alt="" />
@@ -51,16 +53,18 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
             </Link>
           </div>
           <div className="flex items-center space-x-[32px]">
-            <div
-              className="flex cursor-pointer items-center space-x-[8px]"
-              onClick={(e) => {
-                e.stopPropagation()
-                setOpenLeaderBoard(!isOpenLeaderBoard)
-              }}
-            >
-              <img className="w-[32px]" src="/assets/game/cup.png" alt="" />
-              <p className="uppercase">leader board</p>
-            </div>
+            <Link href="/leaderboard">
+              <a
+                className="flex cursor-pointer items-center space-x-[8px]"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setOpenLeaderBoard(!isOpenLeaderBoard)
+                }}
+              >
+                <img className="w-[32px]" src="/assets/game/cup.png" alt="" />
+                <p className="uppercase">leader board</p>
+              </a>
+            </Link>
             <Link href="/about-us">
               <a className="flex items-center space-x-[8px]">
                 <p className="uppercase">ABOUT US</p>
@@ -94,7 +98,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
           </div>
         </div>
       </div>
-      <div
+      {/* <div
         className={
           'absolute top-[96px] left-[40px] z-[600] transition-all' +
           ` ${isOpenLeaderBoard ? '' : 'pointer-events-none scale-95 opacity-0'}`
@@ -130,7 +134,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
             />
           </div>
         </ClickAwayListener>
-      </div>
+      </div> */}
     </>
   )
 }

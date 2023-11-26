@@ -8,22 +8,23 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Web3ReactProvider } from '@web3-react/core'
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
+import { Web3Modal } from '@web3modal/react'
 import 'aos/dist/aos.css'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { Router } from 'next/router'
 import nProgress from 'nprogress'
-import { Fragment, ReactElement, ReactNode } from 'react'
+import { Fragment, ReactElement, ReactNode, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/lib/integration/react'
-import { WagmiConfig, configureChains, createConfig } from 'wagmi'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { bscTestnet } from 'wagmi/chains'
 import store, { persistor } from '../redux/store'
-import { Web3Modal } from '@web3modal/react'
 
-import '../styles/style.scss'
 import { MarioProvider } from '@/providers/game-provider'
+import Aos from 'aos'
+import '../styles/style.scss'
 
 declare global {
   interface Window {
@@ -66,6 +67,10 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
   })
 
   const ethereumClient = new EthereumClient(wagmiConfig, chains)
+
+  useEffect(() => {
+    Aos.init({ offset: 0 })
+  }, [])
 
   return (
     <>
