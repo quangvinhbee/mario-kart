@@ -86,7 +86,7 @@ export const HomePage = () => {
       <div className="fixed inset-0">
         <RacePreview />
       </div>
-      <div className="pointer-events-none relative w-full pt-[80px]">
+      <div className="pointer-events-none relative w-full pt-[40px]">
         <div className="max-w-[645px] mx-auto">
           <Image className="" src="/assets/game/banner.png" alt="" width={646} height={432} />
           <div className="pointer-events-auto translate-y-[-100%]">
