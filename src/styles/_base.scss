@@ -99,17 +99,18 @@ a:focus {
 }
 
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background-color: rgba(16, 16, 16, 1);
+  background: rgb(167, 167, 167);
   -webkit-border-radius: 0px;
-  border-radius: 0px;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 2px;
-  background: rgb(49, 49, 49);
+  background-color: rgba(16, 16, 16, 1);
+  border-radius: 2px;
 }
 
 .text-ellipsis {

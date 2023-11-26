@@ -1,0 +1,59 @@
+#game-layout {
+  .animate-move-down-up {
+    animation: moveDownUp 1s ease-out infinite;
+  }
+
+  @keyframes moveDownUp {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .animate-move-left-right {
+    animation: moveLeftRight 1s ease-out infinite;
+  }
+
+  @keyframes moveLeftRight {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  &.fate-in {
+    animation: fateIn 2s ease-in forwards;
+  }
+
+  @keyframes fateIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  &.fate-out {
+    animation: fateOut 2s ease-out forwards;
+  }
+
+  @keyframes fateOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}

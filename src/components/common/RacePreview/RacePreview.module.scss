@@ -3,13 +3,14 @@
   background-repeat: repeat-x;
   animation: bg-loop infinite 4s 0s linear;
   animation-play-state: paused;
+  background-size: auto 500px;
 
   @keyframes bg-loop {
     0% {
       background-position: 0 bottom;
     }
     100% {
-      background-position: -775px bottom;
+      background-position: calc(-775px * (500 / 648)) bottom;
     }
   }
 }

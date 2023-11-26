@@ -1,11 +1,12 @@
-import { changeLanguageSetting } from '@/redux/common/setting'
+import { ClickAwayListener } from '@mui/material'
 import { useWeb3Modal } from '@web3modal/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { NumericFormat } from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
-import { useAccount, useDisconnect } from 'wagmi'
+import { useAccount } from 'wagmi'
 
 interface HeaderProps {
   onClickMenu?: () => void
@@ -20,28 +21,11 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
   const [isOpenAutoCompleteMobile, setOpenAutocompleteMobile] = useState(false)
   const lang = useSelector((store: any) => store?.SettingCommonSlice.lang)
   const { open } = useWeb3Modal()
+  const [isOpenLeaderBoard, setOpenLeaderBoard] = useState(false)
 
   const [isOpenModalInfo, setIsOpenInfo] = useState(false)
 
-  const { address, isConnected } = useAccount()
-  const { disconnect } = useDisconnect()
-
-  const onChangeLanguage = async (lang: string) => {
-    if (typeof window !== 'undefined') {
-      dispatch(changeLanguageSetting(lang))
-      window.localStorage.setItem('lang', lang)
-    }
-  }
-
-  const flagImg: any = {
-    en: '/assets/main-layout/flag/UK.svg',
-    cn: '/assets/main-layout/flag/CN.svg',
-    vi: '/assets/main-layout/flag/VI.png',
-  }
-
-  const onConnectWalletConnect = async () => {
-    await open()
-  }
+  const { address } = useAccount()
 
   function shortenAddress(address: string) {
     return address?.substring(0, 5) + '...' + address?.substring(address.length - 3, address.length)
@@ -67,13 +51,17 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
             </Link>
           </div>
           <div className="flex items-center space-x-[32px]">
-            <Link href='/leaderboard'>
-              <a className="flex items-center space-x-[8px]">
-                <img className="w-[32px]" src="/assets/game/cup.png" alt="" />
-                <p className="uppercase">leader board</p>
-              </a>
-            </Link>
-            <Link href='/about-us'>
+            <div
+              className="flex cursor-pointer items-center space-x-[8px]"
+              onClick={(e) => {
+                e.stopPropagation()
+                setOpenLeaderBoard(!isOpenLeaderBoard)
+              }}
+            >
+              <img className="w-[32px]" src="/assets/game/cup.png" alt="" />
+              <p className="uppercase">leader board</p>
+            </div>
+            <Link href="/about-us">
               <a className="flex items-center space-x-[8px]">
                 <p className="uppercase">ABOUT US</p>
               </a>
@@ -96,13 +84,52 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
                     {shortenAddress(address)}
                   </p>
                 </div>
-                <p className="absolute inset-x-0 top-[100%] mt-[12px] text-center text-[10px] uppercase">
-                  View user information
-                </p>
+                <Link href="/profile">
+                  <a className="absolute inset-x-0 top-[100%] mt-[12px] text-center text-[10px] uppercase">
+                    View user information
+                  </a>
+                </Link>
               </div>
             )}
           </div>
         </div>
+      </div>
+      <div
+        className={
+          'absolute top-[96px] left-[40px] z-[600] transition-all' +
+          ` ${isOpenLeaderBoard ? '' : 'pointer-events-none scale-95 opacity-0'}`
+        }
+      >
+        <ClickAwayListener onClickAway={() => setOpenLeaderBoard(false)}>
+          <div className="relative">
+            <img
+              className="aspect-[660/515] w-screen max-w-[660px]"
+              src="/assets/game/bg-leaderboard.png"
+              alt=""
+            />
+            <div className="absolute top-[14%] left-[10%] right-[6%] bottom-[40%] overflow-y-auto pr-[4%]">
+              <div className="space-y-[24px]">
+                {[...Array(10)].map((item, i) => (
+                  <div className="flex items-center" key={i}>
+                    <p className="flex-grow">{shortenAddress('0x1233213213121321589')}</p>
+                    <NumericFormat displayType="text" value={12345} thousandSeparator />
+                    <img
+                      className="ml-[8px] inline-block w-[16px]"
+                      src="/assets/game/ic-coin.svg"
+                      alt=""
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <img
+              className="absolute top-[63%] right-[10%] w-[105px] cursor-pointer transition-all active:translate-y-[4px]"
+              src="/assets/game/button-back.png"
+              alt=""
+              onClick={() => setOpenLeaderBoard(false)}
+            />
+          </div>
+        </ClickAwayListener>
       </div>
     </>
   )
