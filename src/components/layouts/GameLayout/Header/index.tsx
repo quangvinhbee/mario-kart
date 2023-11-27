@@ -41,13 +41,13 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
             </Link>
             <Link href={'#'}>
               <a className="flex items-center space-x-[8px]" target="_blank">
-                <img className="w-[32px]" src="/assets/game/ic-arrow-right.png" alt="" />
+                <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
                 <p className="uppercase">TeleGram</p>
               </a>
             </Link>
             <Link href={'#'}>
               <a className="flex items-center space-x-[8px]" target="_blank">
-                <img className="w-[32px]" src="/assets/game/ic-arrow-right.png" alt="" />
+                <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
                 <p className="uppercase">X (Twitter)</p>
               </a>
             </Link>

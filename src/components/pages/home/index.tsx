@@ -18,7 +18,7 @@ export const HomePage = () => {
             <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
               <img
                 className="animate-move-left-right w-[32px]"
-                src="/assets/game/ic-arrow-right.png"
+                src="/assets/game/ic-arrow-right.svg"
                 alt=""
               />
               <p className="uppercase">buy token</p>
@@ -28,7 +28,7 @@ export const HomePage = () => {
             <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
               <img
                 className="animate-move-left-right w-[32px]"
-                src="/assets/game/ic-arrow-right.png"
+                src="/assets/game/ic-arrow-right.svg"
                 alt=""
               />
               <p className="uppercase">view chart</p>
@@ -38,7 +38,7 @@ export const HomePage = () => {
             <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
               <img
                 className="animate-move-left-right w-[32px]"
-                src="/assets/game/ic-arrow-right.png"
+                src="/assets/game/ic-arrow-right.svg"
                 alt=""
               />
               <p className="uppercase">coinmarketcap</p>

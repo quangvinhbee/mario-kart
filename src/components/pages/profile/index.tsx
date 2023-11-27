@@ -97,7 +97,7 @@ export const ProfilePage = () => {
                     <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
                       <img
                         className="animate-move-left-right w-[32px]"
-                        src="/assets/game/ic-arrow-right.png"
+                        src="/assets/game/ic-arrow-right.svg"
                         alt=""
                       />
                       <p>Buy token</p>
@@ -107,7 +107,7 @@ export const ProfilePage = () => {
                     <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
                       <img
                         className="animate-move-left-right w-[32px]"
-                        src="/assets/game/ic-arrow-right.png"
+                        src="/assets/game/ic-arrow-right.svg"
                         alt=""
                       />
                       <p>view chart</p>
