@@ -1,7 +1,9 @@
 import { RacePreview } from '@/components/common/RacePreview'
+import { useMarioKart } from '@/providers/game-provider'
 import { NumericFormat } from 'react-number-format'
 
 export const RewardPage = () => {
+  const { userBalance } = useMarioKart()
   return (
     <>
       <div className="fixed inset-0">
@@ -12,7 +14,7 @@ export const RewardPage = () => {
           <NumericFormat
             displayType="text"
             className="text-[24px]"
-            value={12345678}
+            value={Number(userBalance)}
             thousandSeparator
           />
           <img className="ml-[16px] inline-block w-[36px]" src="/assets/game/ic-coin.svg" alt="" />

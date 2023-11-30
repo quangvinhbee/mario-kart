@@ -19,8 +19,6 @@ function PageTransition({ children, previousPathname, ...rest }: PageTransitionP
   const initAnimation = pathname > previousPathname ? onTheTop : onTheBottom
   const exitAnimation = pathname > previousPathname ? onTheBottom : onTheTop
 
-  console.log(pathname, previousPathname, pathname > previousPathname)
-
   return (
     <motion.div
       initial={initAnimation}

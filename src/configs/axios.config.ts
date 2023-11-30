@@ -27,10 +27,8 @@ customAxios.interceptors.response.use(
   },
   (error: any) => {
     if (axios.isCancel(error)) {
-      console.log('Request canceled', error.message)
     }
     const response = error?.response?.data
-    console.log('=>>>', response)
     if (response?.status == 401) {
       return Router.push('/login')
     }

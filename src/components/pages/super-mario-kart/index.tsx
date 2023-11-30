@@ -21,8 +21,6 @@ export enum RaceStatus {
 
 const winRacerIndex = Math.floor(Math.random() * 3)
 
-console.log('winRacerIndex', winRacerIndex)
-
 export const SuperMarioKart = () => {
   const openSound = useSelector((store: any) => store?.SettingCommonSlice.openSound)
   const END_POINT = process.env.NEXT_PUBLIC_API_URL
@@ -54,9 +52,7 @@ export const SuperMarioKart = () => {
 
   const getLogin = () => {
     try {
-    } catch (e) {
-      console.log(e.message)
-    }
+    } catch (e) {}
   }
 
   useEffect(() => {

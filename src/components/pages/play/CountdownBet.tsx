@@ -1,4 +1,5 @@
 import { RacePreview } from '@/components/common/RacePreview'
+import { useMarioKart } from '@/providers/game-provider'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { NumericFormat } from 'react-number-format'
@@ -15,7 +16,7 @@ interface CountdownBetProps {
 }
 
 export const CountdownBet = (props: CountdownBetProps) => {
-  const { onBet } = props
+  const { betHandler, currentGame, userBalance } = useMarioKart()
 
   const [betMarioAmount, setBetMarioAmount] = useState(0)
   const [betYoshiAmount, setBetYoshiAmount] = useState(0)
@@ -52,6 +53,28 @@ export const CountdownBet = (props: CountdownBetProps) => {
     },
   ]
 
+  const onBet = async () => {
+    try {
+      let dataBetting = {
+        mario: {
+          amount: betMarioAmount,
+        },
+        yoshi: {
+          amount: betYoshiAmount,
+        },
+        toad: {
+          amount: betToadAmount,
+        },
+        bower: {
+          amount: betBowerAmount,
+        },
+      }
+      betHandler(dataBetting)
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+
   const displayedTime = () => {
     let seconds: any = secondsRemaining % 60
     let minutes: any = Math.floor((secondsRemaining % (60 * 60)) / 60)
@@ -70,7 +93,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const s = (new Date(endDate).valueOf() - Date.now()) / 1000
+      const s = (new Date(Number(currentGame?.endAt || 0)).valueOf() - Date.now()) / 1000
       setSecondsRemaining(Math.max(Math.round(s), 0))
     }, 1000)
 
@@ -138,7 +161,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
             <NumericFormat
               displayType="text"
               className="text-[24px]"
-              value={12345678}
+              value={Number(userBalance)}
               thousandSeparator
             />
             <img

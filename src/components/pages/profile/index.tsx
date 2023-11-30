@@ -2,10 +2,11 @@ import { RacePreview } from '@/components/common/RacePreview'
 import { shortenAddress } from '@/lib/helpers/utils'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { NumericFormat } from 'react-number-format'
 import { useAccount } from 'wagmi'
 import { PlayBanner } from '../home/PlayBanner'
+import { useMarioKart } from '@/providers/game-provider'
 
 export enum RaceStatus {
   Preview,
@@ -16,6 +17,9 @@ export enum RaceStatus {
 
 export const ProfilePage = () => {
   const { address } = useAccount()
+  const { depositHandler, userBalance } = useMarioKart()
+
+  const [depositAmount, setDepositAmount] = useState(0)
 
   useEffect(() => {}, [address])
 
@@ -46,7 +50,7 @@ export const ProfilePage = () => {
               <div className="mt-[16px] flex justify-between text-[12px]">
                 <p>Balance</p>
                 <p>
-                  <NumericFormat displayType="text" value={12345} thousandSeparator />
+                  <NumericFormat displayType="text" value={userBalance} thousandSeparator />
                   <img
                     className="ml-[8px] inline-block w-[16px]"
                     src="/assets/game/ic-coin.svg"
@@ -60,6 +64,8 @@ export const ProfilePage = () => {
                   <NumericFormat
                     className="h-[30px] w-[80%] font-retro outline-none"
                     thousandSeparator
+                    value={depositAmount}
+                    onChange={(e) => setDepositAmount(Number(e.target.value.replace(',', '')))}
                   />
                   <img
                     className="ml-[8px] inline-block w-[16px] cursor-pointer transition-all active:translate-y-[4px]"
@@ -67,7 +73,9 @@ export const ProfilePage = () => {
                     alt=""
                   />
                 </div>
-                <img className="w-[89px]" src="/assets/game/button-confirm.svg" alt="" />
+                <button className="cursor-pointer" onClick={() => depositHandler(depositAmount)}>
+                  <img className="w-[89px]" src="/assets/game/button-confirm.svg" alt="" />
+                </button>
               </div>
               <div className="mt-[24px] flex items-center justify-between space-x-[12px] text-[12px]">
                 <p className="w-[100px]">Withdraw:</p>

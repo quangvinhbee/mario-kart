@@ -1,22 +1,24 @@
+import axios from 'axios'
 import { ethers } from 'ethers'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import socketClient from 'socket.io-client'
 import { useAccount, useBalance } from 'wagmi'
+import { erc20ABI } from 'wagmi'
 import Web3 from 'web3'
 // import Web3 from 'web3'
 // import Web3 from 'web3'
 
 // ================== CONFIG NEED CHANGE ================== //
-const poolAddress = '0x3Bf94dc672FD09Ed167A955f03Bd70A78E802e5D'
-const tokenAddress = '0x7FC09A4F6182E835A97c42980F7235E8C0cBfa56' // mCarrot
+const poolAddress = '0x407FDe45cB6b7FcD5e8266ba434d9fC0c79277c2'
+const tokenAddress = '0xB420983029fAd280d6243c7078014eE128a4ac26' // mCarrot
 const chain = 'bsc testnet'
 
-const apiURL = 'http://localhost:7007'
-const socketServer = 'http://localhost:7008'
-// const apiURL = 'https://api.xwizard.io'
-// const socketServer = 'https://ws.xwizard.io'
+// const apiURL = 'http://localhost:7007'
+// const socketServer = 'http://localhost:7008'
+const apiURL = 'https://api-mario.api-servergame.com'
+const socketServer = 'https://socket-mario.api-servergame.com'
 const digit = 9
 
 const toastOption: any = {
@@ -57,6 +59,7 @@ export const MarioContext = createContext<{
   onChat?: any
   userCashout?: any
   balanceXWizard?: any
+  currentGame?: any
 }>({})
 
 export function MarioProvider(props: any) {
@@ -82,6 +85,7 @@ export function MarioProvider(props: any) {
   const [userBalance, setUserBalance] = useState(0)
   const [bankRoll, setBankRoll] = useState<any>()
   const [rollCountDown, setRollCountdown] = useState<any>()
+  const [currentGame, setCurrentGame] = useState<any>()
 
   const [bettingValue, setBettingValue] = useState(0)
   const [autoCash, setAutoCash] = useState(0)
@@ -113,120 +117,128 @@ export function MarioProvider(props: any) {
 
   // SOCKET
   useEffect(() => {
-    const socket = socketClient(socketServer)
-    setSocket(socket)
-    socket.emit('join')
-    socket.on('chatting', (data: any) => {
-      try {
-        if (data) setLiveChat([...data])
-      } catch (e) {
-        console.log(e)
-      }
-    })
-    socket.on('currentx', (data: any) => {
-      // if (autoCash > 1 && autoCash <= data) {
-      //   if (autoCash == data) {
-      //     document.querySelectorAll('.play-button')[0].click()
-      //   }
-      // }
-
-      if (data.toString().includes('mCarrot')) {
-        setCurrentRate(data?.replace('mCarrot', 'Win at '))
-
-        // document.querySelectorAll('.current-x-text')[0].classList.add('color-red')
-        // document.querySelectorAll('.current-x-text')[1].classList.add('color-red')
-      } else {
-        setCurrentRate(data)
-        if (bigB === 'Play') {
-          setBigb('Cashout')
-        }
-      }
-    })
-
-    socket.on('recent-game', (data: any) => {
-      setRecentGame(data)
-    })
-
-    socket.on('user-cashout', (data: any) => {
-      console.log('user-cashout', data)
-    })
-
-    socket.on('game-status', (data: any) => {
-      console.log(data)
-      if (data === 'waiting') {
-        currentG = []
-        setJoiners(currentG)
-        uCashout = []
-        setUserCashout(uCashout)
-        setbigBdisable(false)
-        setBigb('Play')
-        setPlaying(false)
-      } else if (data === 'started') {
-        setbigBdisable(false)
-        setBigb('Cashout')
-        setPlaying(true)
-      }
-    })
-
-    socket.on('user-placed', (data: any) => {
-      let existingBool = false
-      let existingIndex = 0
-      currentG.map((v, i) => {
-        if (v.wallet === data.wallet && data.bet) {
-          existingBool = true
-          existingIndex = i
-        }
-      })
-
-      if (existingBool && data?.bet) {
-        currentG[existingIndex] = {
-          ...currentG[existingIndex],
-          type: 'cash-out',
-          currentX: data.currentX,
-        }
-      } else {
-        currentG.push(data)
-      }
-      // currentG.push(data)
-      setJoiners(currentG)
-      existingIndex = 0
-      if (data.win) {
-        uCashout.forEach((v, i) => {
-          if (v.wallet === data.wallet && data.bet) {
-            existingIndex = i
-          }
-        })
-        if (!existingIndex) {
-          uCashout.push(data)
-          //   setUserCashout([...new Set(uCashout)])
-        }
-      }
-    })
-
-    socket.on('count-down', (data: any) => {
-      setRollCountdown(data)
-    })
+    // const socket = socketClient(socketServer)
+    // setSocket(socket)
+    // socket.emit('join')
+    // socket.on('chatting', (data: any) => {
+    //   try {
+    //     if (data) setLiveChat([...data])
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // })
+    // socket.on('currentx', (data: any) => {
+    //   // if (autoCash > 1 && autoCash <= data) {
+    //   //   if (autoCash == data) {
+    //   //     document.querySelectorAll('.play-button')[0].click()
+    //   //   }
+    //   // }
+    //   if (data.toString().includes('mCarrot')) {
+    //     setCurrentRate(data?.replace('mCarrot', 'Win at '))
+    //     // document.querySelectorAll('.current-x-text')[0].classList.add('color-red')
+    //     // document.querySelectorAll('.current-x-text')[1].classList.add('color-red')
+    //   } else {
+    //     setCurrentRate(data)
+    //     if (bigB === 'Play') {
+    //       setBigb('Cashout')
+    //     }
+    //   }
+    // })
+    // socket.on('recent-game', (data: any) => {
+    //   setRecentGame(data)
+    // })
+    // socket.on('user-cashout', (data: any) => {
+    //   console.log('user-cashout', data)
+    // })
+    // socket.on('game-status', (data: any) => {
+    //   console.log(data)
+    //   if (data === 'waiting') {
+    //     currentG = []
+    //     setJoiners(currentG)
+    //     uCashout = []
+    //     setUserCashout(uCashout)
+    //     setbigBdisable(false)
+    //     setBigb('Play')
+    //     setPlaying(false)
+    //   } else if (data === 'started') {
+    //     setbigBdisable(false)
+    //     setBigb('Cashout')
+    //     setPlaying(true)
+    //   }
+    // })
+    // socket.on('user-placed', (data: any) => {
+    //   let existingBool = false
+    //   let existingIndex = 0
+    //   currentG.map((v, i) => {
+    //     if (v.wallet === data.wallet && data.bet) {
+    //       existingBool = true
+    //       existingIndex = i
+    //     }
+    //   })
+    //   if (existingBool && data?.bet) {
+    //     currentG[existingIndex] = {
+    //       ...currentG[existingIndex],
+    //       type: 'cash-out',
+    //       currentX: data.currentX,
+    //     }
+    //   } else {
+    //     currentG.push(data)
+    //   }
+    //   // currentG.push(data)
+    //   setJoiners(currentG)
+    //   existingIndex = 0
+    //   if (data.win) {
+    //     uCashout.forEach((v, i) => {
+    //       if (v.wallet === data.wallet && data.bet) {
+    //         existingIndex = i
+    //       }
+    //     })
+    //     if (!existingIndex) {
+    //       uCashout.push(data)
+    //       //   setUserCashout([...new Set(uCashout)])
+    //     }
+    //   }
+    // })
+    // socket.on('count-down', (data: any) => {
+    //   setRollCountdown(data)
+    // })
   }, [])
 
   const depositHandler = async (value: any) => {
     setDepositLoad(true)
     try {
-      //   const amount = value
-      //   const provider = new ethers.providers.Web3Provider(window.ethereum)
-      //   await window.ethereum.enable()
-      //   const signer = provider.getSigner()
-      //   const contract = new ethers.Contract(tokenAddress, ABI_ERC20, signer)
-      //   console.log('contract', contract)
-      //   const result = await contract.transfer(poolAddress, Moralis.Units.Token(amount, digit)).send({
-      //     from: address,
-      //     // gasLimit: '100000',
-      //   })
-      //   if (result) {
-      //     setDepositLoad(false)
-      //     // $('.close-button').trigger('click')
-      //     toast.success('Waiting for confirmation...', toastOption)
-      //   }
+      const amount = Number(value)
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      await window.ethereum.enable()
+      const signer = provider.getSigner()
+      // const contract = new ethers.Contract(tokenAddress, erc20ABI, signer)
+
+      const web3 = new Web3(Web3.givenProvider)
+      const contract = new web3.eth.Contract(erc20ABI as any, tokenAddress)
+
+      console.log(contract)
+      const result = await contract.methods
+        .transfer(poolAddress, Web3.utils.toWei(`${amount}`, 'gwei'))
+        .send({
+          from: address,
+        })
+      if (result) {
+        toast.success('Waiting for confirmation...', toastOption)
+        const req2 = await fetch(`${apiURL}/checkDeposit`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            address: address.toLowerCase(),
+          }),
+        })
+        await refreshBalance()
+      }
+      setDepositLoad(false)
     } catch (err) {
+      console.log(err)
       setDepositLoad(false)
       console.log(err)
       if (err.code) {
@@ -236,7 +248,6 @@ export function MarioProvider(props: any) {
       }
     }
     setTypeDialog(null)
-    // dispatch(handleUpdateSetting('' as any))
   }
 
   const withdrawHandler = async (value: any) => {
@@ -336,28 +347,26 @@ export function MarioProvider(props: any) {
     setBalanceLoad(false)
   }
 
-  const betHandler = async (bettingValue: any) => {
-    if (bigB === 'Play') {
-      setbigBdisable(true)
-      sSocketServer.emit('placeBet', {
-        secret: connectedUser?.secret,
-        betAmount: bettingValue,
+  const betHandler = async (dataBetting: any) => {
+    try {
+      dataBetting.key = connectedUser?.secret
+      dataBetting.wallet = address.toLowerCase()
+      dataBetting.idGame = currentGame._id
+      const data = await fetch(`${apiURL}/placeBet`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ dataBetting }),
       })
-
-      setTimeout(() => {
-        refreshBalance()
-      }, 1000)
-      setBigb('Cashout')
-    } else if (bigB === 'Cashout') {
-      setbigBdisable(true)
-      sSocketServer.emit('cashOut', {
-        secret: connectedUser?.secret,
-      })
-      console.log('Cashout')
-      setTimeout(() => {
-        refreshBalance()
-      }, 1000)
-      setBigb('Play')
+      const res = await data.json()
+      refreshBalance()
+      if (res.status !== 200) {
+        toast.error(res.message)
+      }
+    } catch (e) {
+      console.log(e.message)
     }
   }
 
@@ -373,6 +382,23 @@ export function MarioProvider(props: any) {
   const gameLogout = () => {
     localStorage.removeItem('xwizard-crash')
     // logout()
+  }
+
+  const getCurrentGame = async () => {
+    try {
+      const data = await fetch(`${apiURL}/getCurrentGame`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      const currentGame = await data.json()
+      setCurrentGame({ ...currentGame })
+      setTimeout(() => getCurrentGame(), 1000)
+    } catch (e) {
+      console.log('GET CURRENT GAME ERROR: ', e.message)
+    }
   }
 
   const getData = async () => {
@@ -430,12 +456,12 @@ export function MarioProvider(props: any) {
   }
 
   useEffect(() => {
-    // getData()
-    // if (isConnected) {
-    //   getData()
-    //   getBalanceXWizard()
-    //   refreshBalance()
-    // }
+    if (isConnected) {
+      // getData()
+      getCurrentGame()
+      getBalanceXWizard()
+      refreshBalance()
+    }
   }, [isConnected, address])
   return (
     <MarioContext.Provider
@@ -467,6 +493,7 @@ export function MarioProvider(props: any) {
         onChat,
         userCashout,
         balanceXWizard,
+        currentGame,
       }}
     >
       {props.children}
@@ -474,4 +501,4 @@ export function MarioProvider(props: any) {
   )
 }
 
-export const useCrash = () => useContext(MarioContext)
+export const useMarioKart = () => useContext(MarioContext)
