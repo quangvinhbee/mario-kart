@@ -36,7 +36,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
 
   const onChangeLanguage = async (lang: string) => {
     if (typeof window !== 'undefined') {
-      dispatch(changeLanguageSetting(lang))
+      dispatch(changeLanguageSetting(lang as any))
       window.localStorage.setItem('lang', lang)
     }
   }

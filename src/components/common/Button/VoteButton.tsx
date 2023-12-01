@@ -34,7 +34,7 @@ export function VoteButton({ coin, className = '', ...props }: VoteButtonProps) 
       }
       await CoinApi.upvoteCoinBySlug({ slug, recaptchaToken: token })
       setTotalVotes(totalVotes + 1)
-      dispatch(upvoteCoin(slug))
+      dispatch(upvoteCoin(slug as any))
       toast.success(t('voteSuccess'))
     } catch (error) {}
     setLoading(false)

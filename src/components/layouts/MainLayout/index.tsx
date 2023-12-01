@@ -34,9 +34,9 @@ export function MainLayout({ ...props }) {
       let lang = window.localStorage.getItem('lang')
       if (!lang) {
         window.localStorage.setItem('lang', 'en')
-        dispatch(changeLanguageSetting('en'))
+        dispatch(changeLanguageSetting('en' as any))
       } else {
-        dispatch(changeLanguageSetting(lang))
+        dispatch(changeLanguageSetting(lang as any))
       }
     }
   }
@@ -79,7 +79,7 @@ export function MainLayout({ ...props }) {
             }}
             isOpenMenu={isOpenMenu}
           /> */}
-          <AnimatePresence initial={false} mode="popLayout">
+          <AnimatePresence initial={false}>
             <div key={router.pathname} className="relative h-screen w-full">
               <PageTransition previousPathname={previousPathName}>{props.children}</PageTransition>
             </div>

@@ -9,17 +9,17 @@ export const SoundButton = () => {
 
   const handleToggleSound = (e: React.MouseEvent) => {
     e.stopPropagation()
-    dispatch(updateOpenSoundSetting(!openSound))
+    dispatch(updateOpenSoundSetting(!openSound as any))
   }
 
   const handleOnSound = (e: React.MouseEvent) => {
     e.stopPropagation()
-    dispatch(updateOpenSoundSetting(true))
+    dispatch(updateOpenSoundSetting(true as any))
   }
 
   const handleOffSound = (e: React.MouseEvent) => {
     e.stopPropagation()
-    dispatch(updateOpenSoundSetting(false))
+    dispatch(updateOpenSoundSetting(false as any))
   }
 
   useEffect(() => {

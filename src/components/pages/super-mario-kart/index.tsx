@@ -34,7 +34,7 @@ export const SuperMarioKart = () => {
 
   const handleToggleSound = (e: React.MouseEvent) => {
     e.stopPropagation()
-    dispatch(updateOpenSoundSetting(!openSound))
+    dispatch(updateOpenSoundSetting(!openSound as any))
   }
 
   const handleStart = () => {
