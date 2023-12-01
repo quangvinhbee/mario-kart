@@ -394,9 +394,11 @@ export function MarioProvider(props: any) {
         },
       })
       const currentGame = await data.json()
+      console.log(currentGame)
       setCurrentGame({ ...currentGame })
-      setTimeout(() => getCurrentGame(), 1000)
+      setTimeout(() => getCurrentGame(),2000)
     } catch (e) {
+      setTimeout(() => getCurrentGame(), 2000)
       console.log('GET CURRENT GAME ERROR: ', e.message)
     }
   }
@@ -457,7 +459,7 @@ export function MarioProvider(props: any) {
 
   useEffect(() => {
     if (isConnected) {
-      // getData()
+      getData()
       getCurrentGame()
       getBalanceXWizard()
       refreshBalance()

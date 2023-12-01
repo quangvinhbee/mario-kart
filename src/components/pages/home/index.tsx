@@ -14,35 +14,41 @@ export const HomePage = () => {
       <div className="pointer-events-none relative w-full pt-[40px]">
         <PlayBanner />
         <div className="pointer-events-auto absolute left-[64px] top-[120px] space-y-[24px]">
-          <Link href={'#'}>
-            <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
-              <img
-                className="animate-move-left-right w-[32px]"
-                src="/assets/game/ic-arrow-right.svg"
-                alt=""
-              />
-              <p className="uppercase">buy token</p>
-            </a>
+          <Link
+            href={'#'}
+            className="flex cursor-pointer items-center space-x-[8px]"
+            target="_blank"
+          >
+            <img
+              className="animate-move-left-right w-[32px]"
+              src="/assets/game/ic-arrow-right.svg"
+              alt=""
+            />
+            <p className="uppercase">buy token</p>
           </Link>
-          <Link href={'#'}>
-            <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
-              <img
-                className="animate-move-left-right w-[32px]"
-                src="/assets/game/ic-arrow-right.svg"
-                alt=""
-              />
-              <p className="uppercase">view chart</p>
-            </a>
+          <Link
+            href={'#'}
+            className="flex cursor-pointer items-center space-x-[8px]"
+            target="_blank"
+          >
+            <img
+              className="animate-move-left-right w-[32px]"
+              src="/assets/game/ic-arrow-right.svg"
+              alt=""
+            />
+            <p className="uppercase">view chart</p>
           </Link>
-          <Link href={'#'}>
-            <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
-              <img
-                className="animate-move-left-right w-[32px]"
-                src="/assets/game/ic-arrow-right.svg"
-                alt=""
-              />
-              <p className="uppercase">coinmarketcap</p>
-            </a>
+          <Link
+            href={'#'}
+            className="flex cursor-pointer items-center space-x-[8px]"
+            target="_blank"
+          >
+            <img
+              className="animate-move-left-right w-[32px]"
+              src="/assets/game/ic-arrow-right.svg"
+              alt=""
+            />
+            <p className="uppercase">coinmarketcap</p>
           </Link>
         </div>
       </div>

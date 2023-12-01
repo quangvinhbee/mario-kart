@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import 'swiper/css'
 import { changeLanguageSetting, updateThemeSetting } from '../../../redux/common/setting'
 import DefaultHead from '../DefaultHead'
-import SidebarDesktop from './Sidebar/SidebarDesktop'
 import PageTransition from './PageTransition'
 import { usePrevious } from '@/lib/hooks/usePrevious'
 

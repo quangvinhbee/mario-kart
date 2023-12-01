@@ -25,20 +25,7 @@ export default function ModalInfoAddress({ openModal, handleClose }: ConnectWall
         open={openModal}
         handleClose={handleClose}
         hideCloseIcon
-      >
-        <p className="pl-[12px]">{address}</p>
-
-        <a
-          href={`https://testnet.bscscan.com/address/${address}`}
-          className="flex justify-between p-[12px]"
-          target="_blank"
-        >
-          BSCscan <HiOutlineExternalLink />
-        </a>
-        <div className="flex cursor-pointer justify-between p-[12px]" onClick={handleDisconnect}>
-          Disconnect <FiLogOut />
-        </div>
-      </Modal>
+      ></Modal>
     </>
   )
 }

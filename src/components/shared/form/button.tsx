@@ -117,16 +117,13 @@ export function Button({
   if (props.submit) buttonType = 'submit'
   else if (props.reset) buttonType = 'reset'
 
-  const finalClassName =
-    `${buttonClass} ${buttonText} ${buttonHover} ${buttonSize} ${
-      props.unfocusable ? 'no-focus' : ''
-    } ${iconPosition == 'end' ? 'flex-row-reverse' : ''} ${
-      loading ? 'loading' : ''
-    } ${className}`.trim()
+  const finalClassName = `${buttonClass} ${buttonText} ${buttonHover} ${buttonSize} ${
+    props.unfocusable ? 'no-focus' : ''
+  } ${iconPosition == 'end' ? 'flex-row-reverse' : ''} ${
+    loading ? 'loading' : ''
+  } ${className}`.trim()
 
-  const onClick = (
-    event: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>
-  ) => {
+  const onClick = (event: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>) => {
     if (!props.onClick) return
     if (props.stopPropagation) event.stopPropagation()
     if (props.preventDefault) event.preventDefault()
@@ -180,18 +177,17 @@ export function Button({
   )
 
   return props.href ? (
-    <Link href={props.href}>
-      <a
-        ref={props.innerRef as MutableRefObject<HTMLAnchorElement>}
-        className={finalClassName}
-        style={style}
-        onClick={(e) => onClick(e)}
-        tabIndex={props.unfocusable && -1}
-        data-tooltip={props.tooltip}
-        data-placement={props.placement || 'top'}
-      >
-        {Children}
-      </a>
+    <Link
+      href={props.href}
+      ref={props.innerRef as MutableRefObject<HTMLAnchorElement>}
+      className={finalClassName}
+      style={style}
+      onClick={(e) => onClick(e)}
+      tabIndex={props.unfocusable && -1}
+      data-tooltip={props.tooltip}
+      data-placement={props.placement || 'top'}
+    >
+      {Children}
     </Link>
   ) : (
     <button

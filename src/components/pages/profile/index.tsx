@@ -101,37 +101,37 @@ export const ProfilePage = () => {
                   />
                 </div>
                 <div className="w-[48%] space-y-[12px]">
-                  <Link href={'#'}>
-                    <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
+                  <Link href={'#'} className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
+                  
                       <img
                         className="animate-move-left-right w-[32px]"
                         src="/assets/game/ic-arrow-right.svg"
                         alt=""
                       />
                       <p>Buy token</p>
-                    </a>
+                    
                   </Link>
-                  <Link href={'#'}>
-                    <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
+                  <Link href={'#'} className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
+                  
                       <img
                         className="animate-move-left-right w-[32px]"
                         src="/assets/game/ic-arrow-right.svg"
                         alt=""
                       />
                       <p>view chart</p>
-                    </a>
+                   
                   </Link>
                 </div>
               </div>
               <div className="mt-[8px] flex justify-end">
-                <Link href={'/'}>
-                  <a className="cursor-pointer">
+                <Link href={'/'}className="cursor-pointer">
+                  
                     <img
                       className="w-[104px] transition-all active:translate-y-[4px]"
                       src="/assets/game/button-back.png"
                       alt=""
                     />
-                  </a>
+                
                 </Link>
               </div>
             </div>

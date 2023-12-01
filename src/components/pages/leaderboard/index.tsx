@@ -51,14 +51,12 @@ export const Leaderboard = () => {
               </div>
 
               <div className="mt-[24px] flex justify-end">
-                <Link href={'/'}>
-                  <a className="cursor-pointer">
-                    <img
-                      className="w-[104px] transition-all active:translate-y-[4px]"
-                      src="/assets/game/button-back.png"
-                      alt=""
-                    />
-                  </a>
+                <Link href={'/'} className="cursor-pointer">
+                  <img
+                    className="w-[104px] transition-all active:translate-y-[4px]"
+                    src="/assets/game/button-back.png"
+                    alt=""
+                  />
                 </Link>
               </div>
             </div>

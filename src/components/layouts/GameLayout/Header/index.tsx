@@ -35,40 +35,31 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
         <div className="container flex items-center justify-between">
           <div className="flex items-center space-x-[32px]">
             <Link href={'/'}>
-              <a>
-                <Image src="/assets/game/logo.png" alt="" width={157} height={91} />
-              </a>
+              <Image src="/assets/game/logo.png" alt="" width={157} height={91} />
             </Link>
-            <Link href={'#'}>
-              <a className="flex items-center space-x-[8px]" target="_blank">
-                <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
-                <p className="uppercase">TeleGram</p>
-              </a>
+            <Link href={'#'} className="flex items-center space-x-[8px]" target="_blank">
+              <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
+              <p className="uppercase">TeleGram</p>
             </Link>
-            <Link href={'#'}>
-              <a className="flex items-center space-x-[8px]" target="_blank">
-                <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
-                <p className="uppercase">X (Twitter)</p>
-              </a>
+            <Link href={'#'} className="flex items-center space-x-[8px]" target="_blank">
+              <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
+              <p className="uppercase">X (Twitter)</p>
             </Link>
           </div>
           <div className="flex items-center space-x-[32px]">
-            <Link href="/leaderboard">
-              <a
-                className="flex cursor-pointer items-center space-x-[8px]"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setOpenLeaderBoard(!isOpenLeaderBoard)
-                }}
-              >
-                <img className="w-[32px]" src="/assets/game/cup.png" alt="" />
-                <p className="uppercase">leader board</p>
-              </a>
+            <Link
+              href="/leaderboard"
+              className="flex cursor-pointer items-center space-x-[8px]"
+              onClick={(e) => {
+                e.stopPropagation()
+                setOpenLeaderBoard(!isOpenLeaderBoard)
+              }}
+            >
+              <img className="w-[32px]" src="/assets/game/cup.png" alt="" />
+              <p className="uppercase">leader board</p>
             </Link>
-            <Link href="/about-us">
-              <a className="flex items-center space-x-[8px]">
-                <p className="uppercase">ABOUT US</p>
-              </a>
+            <Link href="/about-us" className="flex items-center space-x-[8px]">
+              <p className="uppercase">ABOUT US</p>
             </Link>
             {!address ? (
               <img
@@ -88,10 +79,11 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
                     {shortenAddress(address)}
                   </p>
                 </div>
-                <Link href="/profile">
-                  <a className="absolute inset-x-0 top-[100%] mt-[12px] text-center text-[10px] uppercase">
-                    View user information
-                  </a>
+                <Link
+                  href="/profile"
+                  className="absolute inset-x-0 top-[100%] mt-[12px] text-center text-[10px] uppercase"
+                >
+                  View user information
                 </Link>
               </div>
             )}

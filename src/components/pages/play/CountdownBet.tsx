@@ -24,8 +24,6 @@ export const CountdownBet = (props: CountdownBetProps) => {
   const [betToadAmount, setBetToadAmount] = useState(0)
   const [secondsRemaining, setSecondsRemaining] = useState(0)
 
-  const endDate = '2023-11-28T14:48:00.000Z'
-
   const betPlaces = [
     {
       name: 'mario',
@@ -93,14 +91,14 @@ export const CountdownBet = (props: CountdownBetProps) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const s = (new Date(Number(currentGame?.endAt || 0)).valueOf() - Date.now()) / 1000
+      const s = (new Date(Number(currentGame?.endAt || 0)).getTime() - new Date().getTime()) / 1000
       setSecondsRemaining(Math.max(Math.round(s), 0))
     }, 1000)
-
+    
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [currentGame])
 
   return (
     <>
@@ -181,10 +179,8 @@ export const CountdownBet = (props: CountdownBetProps) => {
             alt=""
             onClick={onBet}
           />
-          <Link href="/how-to-play">
-            <a className="mt-[4px] block text-center uppercase underline underline-offset-2">
+          <Link href="/how-to-play"className="mt-[4px] block text-center uppercase underline underline-offset-2">
               How to play
-            </a>
           </Link>
         </div>
       </div>

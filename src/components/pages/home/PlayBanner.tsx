@@ -13,10 +13,11 @@ export const PlayBanner = () => {
             alt=""
           />
         </Link>
-        <Link href="/how-to-play">
-          <a className="mt-[4px] block text-center uppercase underline underline-offset-2">
-            How to play
-          </a>
+        <Link
+          href="/how-to-play"
+          className="mt-[4px] block text-center uppercase underline underline-offset-2"
+        >
+          How to play
         </Link>
       </div>
     </div>
