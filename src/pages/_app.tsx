@@ -83,22 +83,18 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
                   <MarioProvider>
                     <OverrideMuiTheme>
                       <ThemeWrapper>
-                        <I18NextWrapper>
-                          <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <Layout {...layoutProps}>
-                              <Component {...pageProps} />
-                            </Layout>
-                            <Toaster
-                              position="bottom-right"
-                              toastOptions={{
-                                style: {
-                                  background: '#333',
-                                  color: '#fff',
-                                },
-                              }}
-                            />
-                          </LocalizationProvider>
-                        </I18NextWrapper>
+                        <Layout {...layoutProps}>
+                          <Component {...pageProps} />
+                        </Layout>
+                        <Toaster
+                          position="bottom-right"
+                          toastOptions={{
+                            style: {
+                              background: '#333',
+                              color: '#fff',
+                            },
+                          }}
+                        />
                       </ThemeWrapper>
                     </OverrideMuiTheme>
                   </MarioProvider>

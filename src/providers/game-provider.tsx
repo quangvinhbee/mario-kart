@@ -15,10 +15,10 @@ const poolAddress = '0x407FDe45cB6b7FcD5e8266ba434d9fC0c79277c2'
 const tokenAddress = '0xB420983029fAd280d6243c7078014eE128a4ac26' // mCarrot
 const chain = 'bsc testnet'
 
-// const apiURL = 'http://localhost:7007'
-// const socketServer = 'http://localhost:7008'
-const apiURL = 'https://api-mario.api-servergame.com'
-const socketServer = 'https://socket-mario.api-servergame.com'
+const apiURL = 'http://localhost:7007'
+const socketServer = 'http://localhost:7008'
+// const apiURL = 'https://api-mario.api-servergame.com'
+// const socketServer = 'https://socket-mario.api-servergame.com'
 const digit = 9
 
 const toastOption: any = {
