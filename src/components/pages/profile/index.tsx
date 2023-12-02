@@ -7,6 +7,8 @@ import { NumericFormat } from 'react-number-format'
 import { useAccount } from 'wagmi'
 import { PlayBanner } from '../home/PlayBanner'
 import { useMarioKart } from '@/providers/game-provider'
+import { FaRedoAlt } from 'react-icons/fa'
+import { IoReload } from 'react-icons/io5'
 
 export enum RaceStatus {
   Preview,
@@ -17,7 +19,7 @@ export enum RaceStatus {
 
 export const ProfilePage = () => {
   const { address } = useAccount()
-  const { depositHandler, userBalance } = useMarioKart()
+  const { depositHandler, userBalance, refreshBalance, depositLoad } = useMarioKart()
 
   const [depositAmount, setDepositAmount] = useState(0)
 
@@ -49,8 +51,11 @@ export const ProfilePage = () => {
               </div>
               <div className="mt-[16px] flex justify-between text-[12px]">
                 <p>Balance</p>
-                <p>
-                  <NumericFormat displayType="text" value={userBalance} thousandSeparator />
+                <p className="flex items-center gap-2">
+                  <NumericFormat displayType="text" value={userBalance} thousandSeparator />{' '}
+                  <button className="cursor-pointer" onClick={() => refreshBalance()}>
+                    <IoReload />
+                  </button>{' '}
                   <img
                     className="ml-[8px] inline-block w-[16px]"
                     src="/assets/game/ic-coin.svg"
@@ -65,6 +70,7 @@ export const ProfilePage = () => {
                     className="h-[30px] w-[80%] font-retro outline-none"
                     thousandSeparator
                     value={depositAmount}
+                    disabled={depositLoad}
                     onChange={(e) => setDepositAmount(Number(e.target.value.replace(',', '')))}
                   />
                   <img
@@ -73,7 +79,11 @@ export const ProfilePage = () => {
                     alt=""
                   />
                 </div>
-                <button className="cursor-pointer" onClick={() => depositHandler(depositAmount)}>
+                <button
+                  className={`cursor-pointer ${depositLoad && 'opacity-60'}`}
+                  onClick={() => depositHandler(depositAmount)}
+                  disabled={depositLoad}
+                >
                   <img className="w-[89px]" src="/assets/game/button-confirm.svg" alt="" />
                 </button>
               </div>
@@ -101,37 +111,39 @@ export const ProfilePage = () => {
                   />
                 </div>
                 <div className="w-[48%] space-y-[12px]">
-                  <Link href={'#'} className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
-                  
-                      <img
-                        className="animate-move-left-right w-[32px]"
-                        src="/assets/game/ic-arrow-right.svg"
-                        alt=""
-                      />
-                      <p>Buy token</p>
-                    
+                  <Link
+                    href={'#'}
+                    className="flex cursor-pointer items-center space-x-[8px]"
+                    target="_blank"
+                  >
+                    <img
+                      className="animate-move-left-right w-[32px]"
+                      src="/assets/game/ic-arrow-right.svg"
+                      alt=""
+                    />
+                    <p>Buy token</p>
                   </Link>
-                  <Link href={'#'} className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
-                  
-                      <img
-                        className="animate-move-left-right w-[32px]"
-                        src="/assets/game/ic-arrow-right.svg"
-                        alt=""
-                      />
-                      <p>view chart</p>
-                   
+                  <Link
+                    href={'#'}
+                    className="flex cursor-pointer items-center space-x-[8px]"
+                    target="_blank"
+                  >
+                    <img
+                      className="animate-move-left-right w-[32px]"
+                      src="/assets/game/ic-arrow-right.svg"
+                      alt=""
+                    />
+                    <p>view chart</p>
                   </Link>
                 </div>
               </div>
               <div className="mt-[8px] flex justify-end">
-                <Link href={'/'}className="cursor-pointer">
-                  
-                    <img
-                      className="w-[104px] transition-all active:translate-y-[4px]"
-                      src="/assets/game/button-back.png"
-                      alt=""
-                    />
-                
+                <Link href={'/'} className="cursor-pointer">
+                  <img
+                    className="w-[104px] transition-all active:translate-y-[4px]"
+                    src="/assets/game/button-back.png"
+                    alt=""
+                  />
                 </Link>
               </div>
             </div>

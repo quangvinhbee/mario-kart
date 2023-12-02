@@ -99,8 +99,8 @@ export function MarioProvider(props: any) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (localStorage.getItem('xwizard-crash')) {
-      const currentUser = JSON.parse(localStorage.getItem('xwizard-crash'))
+    if (localStorage.getItem('mario-kart')) {
+      const currentUser = JSON.parse(localStorage.getItem('mario-kart'))
       setCuser(currentUser)
     }
   }, [])
@@ -117,9 +117,12 @@ export function MarioProvider(props: any) {
 
   // SOCKET
   useEffect(() => {
-    // const socket = socketClient(socketServer)
-    // setSocket(socket)
-    // socket.emit('join')
+    const socket = socketClient(socketServer)
+    setSocket(socket)
+    socket.emit('join')
+    socket.on('currentGame', (data) => {
+      setCurrentGame({ ...data })
+    })
     // socket.on('chatting', (data: any) => {
     //   try {
     //     if (data) setLiveChat([...data])
@@ -224,17 +227,7 @@ export function MarioProvider(props: any) {
         })
       if (result) {
         toast.success('Waiting for confirmation...', toastOption)
-        const req2 = await fetch(`${apiURL}/checkDeposit`, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            address: address.toLowerCase(),
-          }),
-        })
-        await refreshBalance()
+        await checkDeposit()
       }
       setDepositLoad(false)
     } catch (err) {
@@ -248,6 +241,23 @@ export function MarioProvider(props: any) {
       }
     }
     setTypeDialog(null)
+  }
+
+  const checkDeposit = async () => {
+    try {
+      const req2 = await fetch(`${apiURL}/checkDeposit`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          address: address.toLowerCase(),
+        }),
+      })
+    } catch (e) {
+      console.log(e.message)
+    }
   }
 
   const withdrawHandler = async (value: any) => {
@@ -284,6 +294,7 @@ export function MarioProvider(props: any) {
   const refreshBalance = async () => {
     if (!connectedUser?.secret) return
     setBalanceLoad(true)
+    await checkDeposit()
     const req2 = await fetch(`${apiURL}/getBalance`, {
       method: 'POST',
       headers: {
@@ -298,7 +309,7 @@ export function MarioProvider(props: any) {
 
     console.log('data2', data2)
     if (data2?.error) {
-      localStorage.removeItem('xwizard-crash')
+      localStorage.removeItem('mario-kart')
       // window.location.reload()
     } else {
       let bal = data2?.balance
@@ -380,7 +391,7 @@ export function MarioProvider(props: any) {
   }
 
   const gameLogout = () => {
-    localStorage.removeItem('xwizard-crash')
+    localStorage.removeItem('mario-kart')
     // logout()
   }
 
@@ -396,7 +407,7 @@ export function MarioProvider(props: any) {
       const currentGame = await data.json()
       console.log(currentGame)
       setCurrentGame({ ...currentGame })
-      setTimeout(() => getCurrentGame(),2000)
+      setTimeout(() => getCurrentGame(), 2000)
     } catch (e) {
       setTimeout(() => getCurrentGame(), 2000)
       console.log('GET CURRENT GAME ERROR: ', e.message)
@@ -439,7 +450,7 @@ export function MarioProvider(props: any) {
     const data2 = await req2.json()
     if (data2?.secret) {
       setCuser(data2)
-      localStorage.setItem('xwizard-crash', JSON.stringify(data2))
+      localStorage.setItem('mario-kart', JSON.stringify(data2))
     }
   }
 
@@ -460,7 +471,7 @@ export function MarioProvider(props: any) {
   useEffect(() => {
     if (isConnected) {
       getData()
-      getCurrentGame()
+      // getCurrentGame()
       getBalanceXWizard()
       refreshBalance()
     }
