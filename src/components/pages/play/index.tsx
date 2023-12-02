@@ -1,8 +1,8 @@
+import { useMarioKart } from '@/providers/game-provider'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { CountdownBet } from './CountdownBet'
 import { Race } from './Race'
-import { useMarioKart } from '@/providers/game-provider'
 
 export enum RaceStatus {
   Bet,
@@ -11,11 +11,10 @@ export enum RaceStatus {
   // RaceEnded,
 }
 
-const winRacerIndex = 4
-
 export const PlayPage = () => {
   const [statusActive, setStatusActive] = useState(RaceStatus.Bet)
   const router = useRouter()
+  const [winRacerIndex, setWinRacerIndex] = useState(3)
   const { betHandler, currentGame, userBalance } = useMarioKart()
 
   useEffect(() => {
