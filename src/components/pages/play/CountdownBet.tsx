@@ -22,6 +22,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
   const [betYoshiAmount, setBetYoshiAmount] = useState(0)
   const [betBowerAmount, setBetBowerAmount] = useState(0)
   const [betToadAmount, setBetToadAmount] = useState(0)
+  const [isBetted, setIsBetted] = useState(false)
   const [secondsRemaining, setSecondsRemaining] = useState(0)
 
   const betPlaces = [
@@ -53,6 +54,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
 
   const onBet = async () => {
     try {
+      if (isBetted) return
       let dataBetting = {
         mario: {
           amount: betMarioAmount,
@@ -67,7 +69,9 @@ export const CountdownBet = (props: CountdownBetProps) => {
           amount: betBowerAmount,
         },
       }
-      betHandler(dataBetting)
+
+      await betHandler(dataBetting)
+      setIsBetted(true)
     } catch (e) {
       console.log(e.message)
     }
@@ -94,7 +98,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
       const s = (new Date(Number(currentGame?.endAt || 0)).getTime() - new Date().getTime()) / 1000
       setSecondsRemaining(Math.max(Math.round(s), 0))
     }, 1000)
-    
+
     return () => {
       clearInterval(interval)
     }
@@ -106,7 +110,11 @@ export const CountdownBet = (props: CountdownBetProps) => {
         <RacePreview />
       </div>
       <div className="container relative flex w-full flex-wrap items-center justify-between px-[16px] pt-[100px]">
-        <div className="mx-auto flex w-[60%] max-w-[760px] flex-wrap justify-between pt-[52px]">
+        <div
+          className={`mx-auto flex w-[60%] max-w-[760px] flex-wrap justify-between pt-[52px] ${
+            isBetted && 'opacity-75'
+          }`}
+        >
           {betPlaces?.map((item, i) => (
             <div className="mb-[32px] w-[45%]" key={i}>
               <div className="flex justify-between">
@@ -127,6 +135,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
                       value={item?.amount || ''}
                       onValueChange={(e) => item?.onChange(+e?.value || 0)}
                       thousandSeparator
+                      disabled={isBetted}
                       placeholder="0"
                     />
                     <img
@@ -174,13 +183,18 @@ export const CountdownBet = (props: CountdownBetProps) => {
             <p className="ml-[8px] text-[48px]">{displayedTime()}</p>
           </div>
           <img
-            className="animate-move-down-up mx-auto mt-[32px] max-w-[337px] cursor-pointer"
+            className={`animate-move-down-up mx-auto mt-[32px] max-w-[337px] cursor-pointer ${
+              isBetted && 'opacity-70'
+            }`}
             src="/assets/game/button-bet.png"
             alt=""
             onClick={onBet}
           />
-          <Link href="/how-to-play"className="mt-[4px] block text-center uppercase underline underline-offset-2">
-              How to play
+          <Link
+            href="/how-to-play"
+            className="mt-[4px] block text-center uppercase underline underline-offset-2"
+          >
+            How to play
           </Link>
         </div>
       </div>

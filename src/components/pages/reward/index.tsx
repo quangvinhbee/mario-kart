@@ -1,9 +1,11 @@
 import { RacePreview } from '@/components/common/RacePreview'
 import { useMarioKart } from '@/providers/game-provider'
+import { useRouter } from 'next/router'
 import { NumericFormat } from 'react-number-format'
 
 export const RewardPage = () => {
   const { userBalance } = useMarioKart()
+  const router = useRouter()
   return (
     <>
       <div className="fixed inset-0">
@@ -47,9 +49,12 @@ export const RewardPage = () => {
               </div>
             </div>
             <img
-              className="animate-move-down-up w-full max-w-[223px] cursor-pointer"
-              src="/assets/game/button-claim.png"
+              className="animate-move-down-up mx-auto mt-[32px] max-w-[337px] cursor-pointer"
+              src="/assets/game/button-play.png"
               alt=""
+              onClick={() => {
+                router.push('/play')
+              }}
             />
           </div>
         </div>
