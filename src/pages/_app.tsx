@@ -23,6 +23,7 @@ import store, { persistor } from '../redux/store'
 import { MarioProvider } from '@/providers/game-provider'
 import Aos from 'aos'
 import '../styles/style.scss'
+import Head from 'next/head'
 
 declare global {
   interface Window {
@@ -72,6 +73,11 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
 
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=1200" user-scalable="0" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+      </Head>
+
       <Web3ReactProvider getLibrary={getLibrary}>
         <WagmiConfig config={wagmiConfig}>
           <Provider store={store}>
