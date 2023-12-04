@@ -23,6 +23,11 @@ export const PlayPage = () => {
     } else {
       setStatusActive(RaceStatus.Bet)
     }
+    if (currentGame?.result) {
+      const CHARACTER = ['MARIO', 'BOWER', 'YOSHI', 'TOAD']
+      console.log(currentGame?.result, CHARACTER.indexOf(currentGame?.result))
+      setWinRacerIndex(CHARACTER.indexOf(currentGame?.result))
+    }
   }, [currentGame])
 
   if (statusActive === RaceStatus.Bet) {

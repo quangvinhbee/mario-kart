@@ -1,12 +1,14 @@
 import { RacePreview } from '@/components/common/RacePreview'
 import { useMarioKart } from '@/providers/game-provider'
+import { AppState } from '@/redux/store'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { NumericFormat } from 'react-number-format'
+import { useSelector } from 'react-redux'
 
 export const RewardPage = () => {
   const [reward, setReward] = useState(0)
-
+  const [winnerImage, setWinnerImage] = useState('')
   const { userBalance, refreshBalance, currentGame, yourBet } = useMarioKart()
   const router = useRouter()
 
@@ -54,9 +56,18 @@ export const RewardPage = () => {
     }
   }
 
+  const racers = [
+    { name: 'MARIO', image: '/assets/game/frame-mario-win.png' },
+    { name: 'YOSHI', image: '/assets/game/frame-yoshi-win.png' },
+    { name: 'BOWER', image: '/assets/game/frame-bower-win.png' },
+    { name: 'TOAD', image: '/assets/game/frame-toad-win.png' },
+  ]
+
   useEffect(() => {
     if (currentGame?.result) {
       getReward(currentGame.result)
+      const image = racers?.find((item) => item?.name === currentGame?.result)?.image
+      setWinnerImage(image)
     }
   }, [currentGame])
 
@@ -80,12 +91,7 @@ export const RewardPage = () => {
           <img className="ml-[16px] inline-block w-[36px]" src="/assets/game/ic-coin.svg" alt="" />
         </div>
         <div className="w-[40%]">
-          <img
-            data-aos="zoom-in"
-            className="mx-auto max-w-[440px]"
-            src={'/assets/game/frame-mario-win.png'}
-            alt=""
-          />
+          <img data-aos="zoom-in" className="mx-auto max-w-[440px]" src={winnerImage} alt="" />
         </div>
         <div className="w-[55%]">
           <p className="text-[24px]">Your rewards</p>
