@@ -1,6 +1,6 @@
 import { useMarioKart } from '@/providers/game-provider'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CountdownBet } from './CountdownBet'
 import { Race } from './Race'
 
@@ -14,7 +14,7 @@ export enum RaceStatus {
 export const PlayPage = () => {
   const [statusActive, setStatusActive] = useState(RaceStatus.Bet)
   const router = useRouter()
-  const [winRacerIndex, setWinRacerIndex] = useState(0)
+  const winRacerIndexRef = useRef(0)
   const { betHandler, currentGame, userBalance } = useMarioKart()
 
   useEffect(() => {
@@ -24,9 +24,9 @@ export const PlayPage = () => {
       setStatusActive(RaceStatus.Bet)
     }
     if (currentGame?.result) {
-      const CHARACTER = ['MARIO', 'BOWER', 'YOSHI', 'TOAD']
+      const CHARACTER = ['MARIO', 'YOSHI', 'BOWER', 'TOAD']
       console.log(currentGame?.result, CHARACTER.indexOf(currentGame?.result))
-      setWinRacerIndex(CHARACTER.indexOf(currentGame?.result))
+      winRacerIndexRef.current = CHARACTER.indexOf(currentGame?.result)
     }
   }, [currentGame])
 
@@ -37,7 +37,7 @@ export const PlayPage = () => {
   return (
     <Race
       raceStatus={statusActive}
-      winRacerIndex={winRacerIndex}
+      winRacerIndexRef={winRacerIndexRef}
       onEndRace={() => {
         router.push('/reward')
       }}
