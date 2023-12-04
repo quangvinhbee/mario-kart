@@ -60,11 +60,10 @@ export const MarioContext = createContext<{
   userCashout?: any
   balanceXWizard?: any
   currentGame?: any
+  yourBet?: any
 }>({})
 
 export function MarioProvider(props: any) {
-  let currentG: any[] = []
-  let uCashout: any[] = []
   const [currentRate, setCurrentRate] = useState<any>(0)
   const [connectedUser, setCuser] = useState<any>()
   const [sSocketServer, setSocket] = useState<any>()
@@ -72,12 +71,11 @@ export function MarioProvider(props: any) {
   const [playing, setPlaying] = useState(true)
   const [isSigned, setIsSigned] = useState(false)
   const [balanceXWizard, setBalanceXWizard] = useState(0)
+  const [yourBet, setYourBet] = useState<any>()
 
   // const [mainProvider, setProvider] = useState();
   const [secretKey, setSecretKey] = useState('')
-  const [bigBdisable, setbigBdisable] = useState(false)
   const [balanceLoad, setBalanceLoad] = useState(false)
-  const [balancePre, setBalancePre] = useState(0)
   const [depositLoad, setDepositLoad] = useState(false)
   const [withdrawLoad, setWithdrawLoad] = useState(false)
   const [currentGameJoiners, setJoiners] = useState<any>()
@@ -97,115 +95,6 @@ export function MarioProvider(props: any) {
   const { address, isConnected } = useAccount()
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (localStorage.getItem('mario-kart')) {
-      const currentUser = JSON.parse(localStorage.getItem('mario-kart'))
-      setCuser(currentUser)
-    }
-  }, [])
-
-  useEffect(() => {
-    // if (activeType === 'auto') {
-    //   document.querySelectorAll('.play-button')[0].click()
-    // }
-  }, [rollCountDown])
-
-  useEffect(() => {
-    refreshBalance()
-  }, [connectedUser])
-
-  // SOCKET
-  useEffect(() => {
-    const socket = socketClient(socketServer)
-    setSocket(socket)
-    socket.emit('join')
-    socket.on('currentGame', (data) => {
-      setCurrentGame({ ...data })
-    })
-    // socket.on('chatting', (data: any) => {
-    //   try {
-    //     if (data) setLiveChat([...data])
-    //   } catch (e) {
-    //     console.log(e)
-    //   }
-    // })
-    // socket.on('currentx', (data: any) => {
-    //   // if (autoCash > 1 && autoCash <= data) {
-    //   //   if (autoCash == data) {
-    //   //     document.querySelectorAll('.play-button')[0].click()
-    //   //   }
-    //   // }
-    //   if (data.toString().includes('mCarrot')) {
-    //     setCurrentRate(data?.replace('mCarrot', 'Win at '))
-    //     // document.querySelectorAll('.current-x-text')[0].classList.add('color-red')
-    //     // document.querySelectorAll('.current-x-text')[1].classList.add('color-red')
-    //   } else {
-    //     setCurrentRate(data)
-    //     if (bigB === 'Play') {
-    //       setBigb('Cashout')
-    //     }
-    //   }
-    // })
-    // socket.on('recent-game', (data: any) => {
-    //   setRecentGame(data)
-    // })
-    // socket.on('user-cashout', (data: any) => {
-    //   console.log('user-cashout', data)
-    // })
-    // socket.on('game-status', (data: any) => {
-    //   console.log(data)
-    //   if (data === 'waiting') {
-    //     currentG = []
-    //     setJoiners(currentG)
-    //     uCashout = []
-    //     setUserCashout(uCashout)
-    //     setbigBdisable(false)
-    //     setBigb('Play')
-    //     setPlaying(false)
-    //   } else if (data === 'started') {
-    //     setbigBdisable(false)
-    //     setBigb('Cashout')
-    //     setPlaying(true)
-    //   }
-    // })
-    // socket.on('user-placed', (data: any) => {
-    //   let existingBool = false
-    //   let existingIndex = 0
-    //   currentG.map((v, i) => {
-    //     if (v.wallet === data.wallet && data.bet) {
-    //       existingBool = true
-    //       existingIndex = i
-    //     }
-    //   })
-    //   if (existingBool && data?.bet) {
-    //     currentG[existingIndex] = {
-    //       ...currentG[existingIndex],
-    //       type: 'cash-out',
-    //       currentX: data.currentX,
-    //     }
-    //   } else {
-    //     currentG.push(data)
-    //   }
-    //   // currentG.push(data)
-    //   setJoiners(currentG)
-    //   existingIndex = 0
-    //   if (data.win) {
-    //     uCashout.forEach((v, i) => {
-    //       if (v.wallet === data.wallet && data.bet) {
-    //         existingIndex = i
-    //       }
-    //     })
-    //     if (!existingIndex) {
-    //       uCashout.push(data)
-    //       //   setUserCashout([...new Set(uCashout)])
-    //     }
-    //   }
-    // })
-    // socket.on('count-down', (data: any) => {
-    //   setRollCountdown(data)
-    // })
-  }, [])
 
   const depositHandler = async (value: any) => {
     setDepositLoad(true)
@@ -363,6 +252,7 @@ export function MarioProvider(props: any) {
       dataBetting.key = connectedUser?.secret
       dataBetting.wallet = address.toLowerCase()
       dataBetting.idGame = currentGame._id
+      setYourBet(dataBetting)
       const data = await fetch(`${apiURL}/placeBet`, {
         method: 'POST',
         headers: {
@@ -469,6 +359,115 @@ export function MarioProvider(props: any) {
   }
 
   useEffect(() => {
+    if (localStorage.getItem('mario-kart')) {
+      const currentUser = JSON.parse(localStorage.getItem('mario-kart'))
+      setCuser(currentUser)
+    }
+  }, [])
+
+  useEffect(() => {
+    // if (activeType === 'auto') {
+    //   document.querySelectorAll('.play-button')[0].click()
+    // }
+  }, [rollCountDown])
+
+  useEffect(() => {
+    refreshBalance()
+  }, [connectedUser])
+
+  // SOCKET
+  useEffect(() => {
+    const socket = socketClient(socketServer)
+    setSocket(socket)
+    socket.emit('join')
+    socket.on('currentGame', (data) => {
+      setCurrentGame({ ...data })
+    })
+    // socket.on('chatting', (data: any) => {
+    //   try {
+    //     if (data) setLiveChat([...data])
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // })
+    // socket.on('currentx', (data: any) => {
+    //   // if (autoCash > 1 && autoCash <= data) {
+    //   //   if (autoCash == data) {
+    //   //     document.querySelectorAll('.play-button')[0].click()
+    //   //   }
+    //   // }
+    //   if (data.toString().includes('mCarrot')) {
+    //     setCurrentRate(data?.replace('mCarrot', 'Win at '))
+    //     // document.querySelectorAll('.current-x-text')[0].classList.add('color-red')
+    //     // document.querySelectorAll('.current-x-text')[1].classList.add('color-red')
+    //   } else {
+    //     setCurrentRate(data)
+    //     if (bigB === 'Play') {
+    //       setBigb('Cashout')
+    //     }
+    //   }
+    // })
+    // socket.on('recent-game', (data: any) => {
+    //   setRecentGame(data)
+    // })
+    // socket.on('user-cashout', (data: any) => {
+    //   console.log('user-cashout', data)
+    // })
+    // socket.on('game-status', (data: any) => {
+    //   console.log(data)
+    //   if (data === 'waiting') {
+    //     currentG = []
+    //     setJoiners(currentG)
+    //     uCashout = []
+    //     setUserCashout(uCashout)
+    //     setbigBdisable(false)
+    //     setBigb('Play')
+    //     setPlaying(false)
+    //   } else if (data === 'started') {
+    //     setbigBdisable(false)
+    //     setBigb('Cashout')
+    //     setPlaying(true)
+    //   }
+    // })
+    // socket.on('user-placed', (data: any) => {
+    //   let existingBool = false
+    //   let existingIndex = 0
+    //   currentG.map((v, i) => {
+    //     if (v.wallet === data.wallet && data.bet) {
+    //       existingBool = true
+    //       existingIndex = i
+    //     }
+    //   })
+    //   if (existingBool && data?.bet) {
+    //     currentG[existingIndex] = {
+    //       ...currentG[existingIndex],
+    //       type: 'cash-out',
+    //       currentX: data.currentX,
+    //     }
+    //   } else {
+    //     currentG.push(data)
+    //   }
+    //   // currentG.push(data)
+    //   setJoiners(currentG)
+    //   existingIndex = 0
+    //   if (data.win) {
+    //     uCashout.forEach((v, i) => {
+    //       if (v.wallet === data.wallet && data.bet) {
+    //         existingIndex = i
+    //       }
+    //     })
+    //     if (!existingIndex) {
+    //       uCashout.push(data)
+    //       //   setUserCashout([...new Set(uCashout)])
+    //     }
+    //   }
+    // })
+    // socket.on('count-down', (data: any) => {
+    //   setRollCountdown(data)
+    // })
+  }, [])
+
+  useEffect(() => {
     if (isConnected) {
       getData()
       // getCurrentGame()
@@ -479,6 +478,7 @@ export function MarioProvider(props: any) {
   return (
     <MarioContext.Provider
       value={{
+        yourBet,
         depositLoad,
         withdrawLoad,
         depositHandler,

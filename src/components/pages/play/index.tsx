@@ -14,7 +14,7 @@ export enum RaceStatus {
 export const PlayPage = () => {
   const [statusActive, setStatusActive] = useState(RaceStatus.Bet)
   const router = useRouter()
-  const [winRacerIndex, setWinRacerIndex] = useState(3)
+  const [winRacerIndex, setWinRacerIndex] = useState(0)
   const { betHandler, currentGame, userBalance } = useMarioKart()
 
   useEffect(() => {

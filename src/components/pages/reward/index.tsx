@@ -1,11 +1,69 @@
 import { RacePreview } from '@/components/common/RacePreview'
 import { useMarioKart } from '@/providers/game-provider'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import { NumericFormat } from 'react-number-format'
 
 export const RewardPage = () => {
-  const { userBalance } = useMarioKart()
+  const [reward, setReward] = useState(0)
+
+  const { userBalance, refreshBalance, currentGame, yourBet } = useMarioKart()
   const router = useRouter()
+
+  const getReward = async (RESULT: any) => {
+    try {
+      let rate = 0
+      switch (RESULT) {
+        case 'MARIO':
+          if (Number(yourBet.mario.amount) > 0) {
+            rate =
+              (Number(currentGame.totalBet) - Number(currentGame.totalMario)) /
+                Number(currentGame.totalMario) || 0
+            console.log(yourBet, rate)
+            setReward(Number(yourBet.mario.amount) * (rate + 1))
+          }
+          break
+        case 'BOWER':
+          if (Number(yourBet.bower.amount) > 0) {
+            rate =
+              (Number(currentGame.totalBet) - Number(currentGame.totalBower)) /
+                Number(currentGame.totalBower) || 0
+            setReward(Number(yourBet.bower.amount) * (rate + 1))
+          }
+
+          break
+        case 'YOSHI':
+          if (Number(yourBet.yoshi.amount) > 0) {
+            rate =
+              (Number(currentGame.totalBet) - Number(currentGame.totalYoshi)) /
+                Number(currentGame.totalYoshi) || 0
+            setReward(Number(yourBet.yoshi.amount) * (rate + 1))
+          }
+          break
+        case 'TOAD':
+          if (Number(yourBet.toad.amount) > 0) {
+            rate =
+              (Number(currentGame.totalBet) - Number(currentGame.totalToad)) /
+                Number(currentGame.totalToad) || 0
+            setReward(Number(yourBet.toad.amount) * (rate + 1))
+          }
+          break
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+    if (currentGame?.result) {
+      getReward(currentGame.result)
+    }
+  }, [currentGame])
+
+  useEffect(() => {
+    refreshBalance()
+  }, [])
+
   return (
     <>
       <div className="fixed inset-0">
@@ -38,7 +96,7 @@ export const RewardPage = () => {
                 <NumericFormat
                   displayType="text"
                   className="text-right font-retro text-[24px] outline-none placeholder:text-black"
-                  value={100}
+                  value={Math.round(reward)}
                   thousandSeparator
                 />
                 <img

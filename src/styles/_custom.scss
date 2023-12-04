@@ -182,11 +182,15 @@
 .ant-table-wrapper
   .ant-table-thead
   > tr
-  > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before,
+  > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not(
+    [colspan]
+  )::before,
 .ant-table-wrapper
   .ant-table-thead
   > tr
-  > td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+  > td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not(
+    [colspan]
+  )::before {
   position: absolute;
   top: 50%;
   inset-inline-end: 0;
@@ -288,4 +292,8 @@
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
   }
+}
+
+.go4109123758 {
+  font-family: Retro Computer, sans-serif;
 }
