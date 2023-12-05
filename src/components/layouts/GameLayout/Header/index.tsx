@@ -48,6 +48,10 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
               <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
               <p className="uppercase">X (Twitter)</p>
             </Link>
+            <Link href={'/about-us'} className="flex items-center space-x-[8px]" target="_blank">
+              <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
+              <p className="uppercase">ABOUT US</p>
+            </Link>
           </div>
           <div className="flex items-center space-x-[32px]">
             <div className="aspect-[394/63] w-[394px] bg-[url(/assets/game/button-yellow.svg)] bg-contain bg-no-repeat flex items-center px-[14px] pb-[0.5%]">
@@ -60,10 +64,10 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
                   thousandSeparator
                 />
               </div>
-              <Link href="/play">
+              <Link href="/menu/spin">
                 <img
                   className="h-[40px] ml-[4px] cursor-pointer transition-all active:translate-y-[2px]"
-                  src="/assets/game/button-enter.svg"
+                  src="/assets/game/button-menu.svg"
                   alt=""
                 />
               </Link>

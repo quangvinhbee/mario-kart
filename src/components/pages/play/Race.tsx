@@ -1,9 +1,11 @@
 import { Background } from '@/components/common/RacePreview/Background'
+import { useMarioKart } from '@/providers/game-provider'
 import classNames from 'classnames/bind'
+import { Reorder } from 'framer-motion'
 import { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
+import { NumericFormat } from 'react-number-format'
 import { RaceStatus } from '.'
 import classes from './SuperMarioKart.module.scss'
-import { useMarioKart } from '@/providers/game-provider'
 
 const cx = classNames.bind(classes)
 
@@ -14,7 +16,9 @@ interface RaceProps {
 }
 
 export const Race: FC<RaceProps> = (props) => {
-  const { currentGame } = useMarioKart()
+  const { betHandler, yourBet, currentGame } = useMarioKart()
+
+  console.log({ betHandler, yourBet, currentGame })
 
   const TOTAL_TIME = (currentGame?.endAt - new Date().getTime()) / 1000 + 30
   console.log('TOTAL_TIME', TOTAL_TIME)
@@ -31,6 +35,13 @@ export const Race: FC<RaceProps> = (props) => {
     { name: 'yoshi', ref: useRef<HTMLDivElement>(null), bottom: 90 },
     { name: 'bowser', ref: useRef<HTMLDivElement>(null), bottom: 60 },
     { name: 'toad', ref: useRef<HTMLDivElement>(null), bottom: 30 },
+  ])
+
+  const [racerPosition, setRacePosition] = useState([
+    { name: 'mario', frameImage: '/assets/game/frame-mario.png', position: 0 },
+    { name: 'yoshi', frameImage: '/assets/game/frame-yoshi.png', position: 0 },
+    { name: 'bowser', frameImage: '/assets/game/frame-bower.png', position: 0 },
+    { name: 'toad', frameImage: '/assets/game/frame-toad.png', position: 0 },
   ])
 
   useEffect(() => {
@@ -66,6 +77,17 @@ export const Race: FC<RaceProps> = (props) => {
           el.style.left = left + distance + 'px'
         }
       }
+
+      const position = racerPosition?.map((item) => ({
+        ...item,
+        position: racers.current
+          ?.find((race) => race?.name === item?.name)
+          ?.ref?.current?.getBoundingClientRect().x,
+      }))
+      position.sort((a, b) => b?.position - a?.position)
+
+      setRacePosition(position)
+
       if (raceStatus === RaceStatus.RaceRunning && stepRemaining.current > 0) {
         containerRef.current.style.transitionDuration = TIME_INTERVAL + 'ms'
         containerRef.current.style.left =
@@ -91,6 +113,45 @@ export const Race: FC<RaceProps> = (props) => {
       <div className="relative h-screen w-screen overflow-hidden">
         <div className="absolute top-[100px] left-[50%] translate-x-[-50%] text-[80px]">
           {timeRemaining}
+        </div>
+        <div className="absolute top-[100px] left-[40px] w-[260px]">
+          <Reorder.Group axis="y" values={racerPosition} onReorder={setRacePosition}>
+            {racerPosition?.map((item, i) => (
+              <Reorder.Item key={item?.name} value={item?.name}>
+                <div className="mb-[16px]" key={i + Math.random()}>
+                  <div className="flex justify-between">
+                    <p className="text-[14px]">{item?.name}</p>
+                    <p className="text-[14px]">Your Bet</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <img className="w-[24%]" src={item?.frameImage} alt="" />
+                    <div className="relative w-[74%]">
+                      <img
+                        className="aspect-[257/93] w-full"
+                        src="/assets/game/frame-input.png"
+                        alt=""
+                      />
+                      <div className="absolute inset-x-[12%] inset-y-[18%] flex items-center">
+                        <NumericFormat
+                          displayType="text"
+                          className={
+                            'w-[calc(100%-36px-16px)] text-right font-retro text-[20px] outline-none placeholder:text-black'
+                          }
+                          value={0}
+                          thousandSeparator
+                        />
+                        <img
+                          className="ml-[16px] inline-block w-[36px]"
+                          src="/assets/game/ic-coin.svg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Reorder.Item>
+            ))}
+          </Reorder.Group>
         </div>
         <div
           ref={containerRef}

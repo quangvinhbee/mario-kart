@@ -104,19 +104,20 @@ export const CountdownBet = (props: CountdownBetProps) => {
   }
 
   const handleChangeDisplayType = (changeType: 'prev' | 'next') => {
-    const displayTypes: any[] = Object.values(DisplayType)
-    let index = displayTypes.indexOf(displayType)
+    const length: number = Object.values(DisplayType)?.length / 2
+    let index: number = displayType
 
     if (changeType === 'prev') {
       index--
       if (index < 0) {
-        index = displayTypes[displayTypes?.length - 1]
+        index = length - 1
       }
     }
     if (changeType === 'next') {
-      index = (index + 1) % displayTypes?.length
+      index = (index + 1) % length
     }
-    setDisplayType(displayTypes[index])
+
+    setDisplayType(index)
   }
 
   useEffect(() => {
@@ -148,7 +149,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
           }`}
         >
           {betPlaces?.map((item, i) => (
-            <div className="mb-[32px] w-[45%]" key={i}>
+            <div className="mb-[32px] w-[45%]" key={'' + i + DisplayType.BetAmount}>
               <div className="flex justify-between">
                 <p className="text-[14px]">{item?.name}</p>
                 <p>{displayType === DisplayType.BetAmount ? 'Bet amount' : 'Total Bet'}</p>
@@ -166,13 +167,12 @@ export const CountdownBet = (props: CountdownBetProps) => {
                       displayType={displayType === DisplayType.BetAmount ? 'input' : 'text'}
                       className={
                         'w-[calc(100%-36px-16px)] text-right font-retro text-[20px] outline-none placeholder:text-black' +
-                        ` ${displayType === DisplayType.BetAmount ? '' : 'h-[100%]'}`
+                        ` ${displayType === DisplayType.BetAmount ? 'h-[100%]' : ''}`
                       }
                       value={
                         (displayType === DisplayType.BetAmount ? item?.amount : item?.totalBet) ||
                         ''
                       }
-                      onValueChange={(e) => item?.onChange(+e?.value || 0)}
                       thousandSeparator
                       disabled={isBetted}
                       placeholder="0"
