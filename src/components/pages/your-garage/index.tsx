@@ -1,23 +1,14 @@
-import { useMarioKart } from '@/providers/game-provider'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useAccount } from 'wagmi'
-
-export enum RaceStatus {
-  Preview,
-  RaceWaiting,
-  RaceRunning,
-  RaceEnded,
-}
 
 export const YourGaragePage = () => {
   const { address } = useAccount()
-  const { depositHandler, userBalance, refreshBalance, depositLoad, withdrawHandler } =
-    useMarioKart()
-
-  const [depositAmount, setDepositAmount] = useState(0)
-  const [withdrawAmount, setWithdrawAmount] = useState(0)
 
   useEffect(() => {}, [address])
 
-  return <></>
+  return (
+    <div className="flex justify-center items-center">
+      <p className="text-center text-[#BDBDBD] text-[68px]">(Coming soon)</p>
+    </div>
+  )
 }
