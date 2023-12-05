@@ -65,4 +65,8 @@ export const gameMenu = [
     path: '/menu/airdrop',
     label: 'AIRDROP',
   },
+  {
+    path: '/menu/upgrade',
+    label: 'Upgrade',
+  },
 ]

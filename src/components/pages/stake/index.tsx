@@ -24,7 +24,7 @@ export const StakePage = () => {
           ))}
         </div>
       </div>
-      <p className="max-w-[700px] mx-auto text-[12px] mt-[44px]">
+      <p className="max-w-[700px] mx-auto text-[12px] mt-[44px] text-center">
         Note:Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
         incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.{' '}
       </p>
