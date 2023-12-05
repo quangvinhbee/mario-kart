@@ -1,8 +1,10 @@
+import { useMarioKart } from '@/providers/game-provider'
 import { useWeb3Modal } from '@web3modal/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { NumericFormat } from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAccount } from 'wagmi'
 
@@ -20,6 +22,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
   const lang = useSelector((store: any) => store?.SettingCommonSlice.lang)
   const { open } = useWeb3Modal()
   const [isOpenLeaderBoard, setOpenLeaderBoard] = useState(false)
+  const { userBalance } = useMarioKart()
 
   const [isOpenModalInfo, setIsOpenInfo] = useState(false)
 
@@ -47,7 +50,25 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
             </Link>
           </div>
           <div className="flex items-center space-x-[32px]">
-            <Link
+            <div className="aspect-[394/63] w-[394px] bg-[url(/assets/game/button-yellow.svg)] bg-contain bg-no-repeat flex items-center px-[14px] pb-[0.5%]">
+              <div className="aspect-[169/40] w-[163px] bg-[url(/assets/game/button-green.svg)] bg-contain bg-no-repeat flex items-center px-[10px] cursor-pointer">
+                <img className="w-[20px] mr-[8px]" src="/assets/game/ic-coin.svg" alt="" />
+                <NumericFormat
+                  displayType="text"
+                  className="text-[14px] font-retro"
+                  value={+userBalance}
+                  thousandSeparator
+                />
+              </div>
+              <Link href="/play">
+                <img
+                  className="h-[40px] ml-[4px] cursor-pointer transition-all active:translate-y-[2px]"
+                  src="/assets/game/button-enter.svg"
+                  alt=""
+                />
+              </Link>
+            </div>
+            {/* <Link
               href="/leaderboard"
               className="flex cursor-pointer items-center space-x-[8px]"
               onClick={(e) => {
@@ -60,7 +81,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
             </Link>
             <Link href="/about-us" className="flex items-center space-x-[8px]">
               <p className="uppercase">ABOUT US</p>
-            </Link>
+            </Link> */}
             {!address ? (
               <img
                 className="w-[151px] cursor-pointer transition-all hover:scale-[1.02] active:translate-y-[4px]"

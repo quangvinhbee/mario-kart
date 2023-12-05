@@ -5,7 +5,7 @@ export const PlayBanner = () => {
   return (
     <div className="mx-auto w-full max-w-[645px]">
       <Image className="" src="/assets/game/banner.png" alt="" width={646} height={432} />
-      <div className="pointer-events-auto translate-y-[-100%]">
+      <div className="pointer-events-auto translate-y-[-85%]">
         <Link href="/play">
           <img
             className="animate-move-down-up mx-auto w-full max-w-[337px] cursor-pointer"

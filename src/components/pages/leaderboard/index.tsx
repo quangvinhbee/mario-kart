@@ -40,7 +40,7 @@ export const Leaderboard = () => {
         <div className="w-[55%]">
           <PlayBanner />
         </div>
-        <div className="absolute top-[40px] right-[5%] w-[40%] max-w-[487px]">
+        <div className="absolute top-[40px] right-[5%] w-[40%] max-w-[487px] z-[100]">
           <div className="relative w-full">
             <Image
               className="aspect-[487/583] w-full"
