@@ -1,6 +1,6 @@
 import { Background } from '@/components/common/RacePreview/Background'
 import classNames from 'classnames/bind'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { RaceStatus } from '.'
 import classes from './SuperMarioKart.module.scss'
 import { useMarioKart } from '@/providers/game-provider'
@@ -9,7 +9,7 @@ const cx = classNames.bind(classes)
 
 interface RaceProps {
   raceStatus?: RaceStatus
-  winRacerIndex?: number
+  winRacerIndexRef?: MutableRefObject<number>
   onEndRace?: VoidFunction
 }
 
@@ -21,7 +21,7 @@ export const Race: FC<RaceProps> = (props) => {
   const TIME_INTERVAL = 200
   const TOTAL_STEP = Math.round(TOTAL_TIME * (1000 / TIME_INTERVAL))
 
-  const { raceStatus, winRacerIndex, onEndRace } = props
+  const { raceStatus, winRacerIndexRef, onEndRace } = props
   const containerRef = useRef<HTMLDivElement>(null)
   const stepRemaining = useRef<number>(TOTAL_STEP)
   const [timeRemaining, setTimeRemaining] = useState<number>(TOTAL_TIME)
@@ -53,7 +53,7 @@ export const Race: FC<RaceProps> = (props) => {
           const random = Math.random()
           let percentTransition = (((95 - percent) * 1.15) / stepRemaining.current) * random
           if (stepRemaining.current < 5) {
-            if (i === winRacerIndex) {
+            if (i === winRacerIndexRef.current) {
               percentTransition = (100 - percent) / stepRemaining.current
             }
           }
