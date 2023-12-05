@@ -44,7 +44,9 @@ export const AirdropPage = () => {
           />
         </div>
         <div className="animate-move-down-up">
-          <ButtonGreen className="ml-[16px] w-[140px] text-[15px]">Claim</ButtonGreen>
+          <ButtonGreen className="ml-[16px] w-[140px] text-[15px]" disabled>
+            Claim
+          </ButtonGreen>
         </div>
       </div>
     </div>
