@@ -38,7 +38,7 @@ export function GameMenuLayout({ ...props }) {
             </div>
           ))}
         </div>
-        <div className="w-[calc(100%-324px)]">{props.children}</div>
+        <div className="w-[calc(100%-324px)] px-[16px] font-retro">{props.children}</div>
       </div>
     </Background>
   )
