@@ -231,7 +231,7 @@ export function MarioProvider(props: any) {
     }
     setBalanceLoad(false)
   }
-  console.log(yourBet)
+
   const betHandler = async (dataBetting: any) => {
     try {
       dataBetting.key = connectedUser?.secret
