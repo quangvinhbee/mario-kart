@@ -17,7 +17,6 @@ export const SpinItem: FC<ISpinItemProps> = (props) => {
       interval = setInterval(() => {
         const characters = Object.keys(characterImage)
         const randomIndex = Math.floor(Math.random() * characters.length)
-        console.log(randomIndex)
         setCharacter(characters[randomIndex] || value)
       }, 70)
     } else {

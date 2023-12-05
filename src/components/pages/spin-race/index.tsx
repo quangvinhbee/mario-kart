@@ -49,7 +49,7 @@ export const SpinRacePage = () => {
       </div>
       <button
         disabled={true}
-        className="block aspect-[223/72] w-[223px] mx-auto mt-[40px] bg-[url(/assets/game/button-green.svg)] bg-no-repeat bg-contain text-[24px] font-retro cursor-pointer transition-all active:translate-y-[2px] disabled:opacity-80 disabled:active:translate-y-0"
+        className="block aspect-[223/72] w-[223px] mx-auto mt-[40px] bg-[url(/assets/game/button-green.svg)] bg-no-repeat bg-contain text-[24px] font-retro cursor-pointer transition-all active:translate-y-[2px] disabled:opacity-60 disabled:active:translate-y-0"
         onClick={handleSpin}
       >
         Spin
