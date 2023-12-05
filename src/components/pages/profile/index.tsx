@@ -1,14 +1,13 @@
 import { RacePreview } from '@/components/common/RacePreview'
 import { shortenAddress } from '@/lib/helpers/utils'
+import { useMarioKart } from '@/providers/game-provider'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { IoReload } from 'react-icons/io5'
 import { NumericFormat } from 'react-number-format'
 import { useAccount } from 'wagmi'
 import { PlayBanner } from '../home/PlayBanner'
-import { useMarioKart } from '@/providers/game-provider'
-import { FaRedoAlt } from 'react-icons/fa'
-import { IoReload } from 'react-icons/io5'
 
 export enum RaceStatus {
   Preview,
@@ -36,7 +35,7 @@ export const ProfilePage = () => {
         <div className="w-[55%]">
           <PlayBanner />
         </div>
-        <div className="absolute top-[40px] right-[5%] w-[40%] max-w-[487px]">
+        <div className="absolute top-[40px] right-[5%] w-[40%] max-w-[487px] z-[100]">
           <div className="relative w-full">
             <Image
               className="aspect-[487/583] w-full"

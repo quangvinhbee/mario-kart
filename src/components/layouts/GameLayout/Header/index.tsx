@@ -2,16 +2,20 @@ import { useMarioKart } from '@/providers/game-provider'
 import { useWeb3Modal } from '@web3modal/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NumericFormat } from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAccount } from 'wagmi'
+import { gameMenu } from '../../GameMenuLayout'
 
 interface HeaderProps {
   onClickMenu?: () => void
   [key: string]: any
 }
+
+const menusPath = gameMenu?.map((item) => item?.path)
 
 export function Header({ onClickMenu, ...props }: HeaderProps) {
   const { t } = useTranslation('translation', { keyPrefix: 'mainLayout' })
@@ -27,6 +31,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
   const [isOpenModalInfo, setIsOpenInfo] = useState(false)
 
   const { address } = useAccount()
+  const router = useRouter()
 
   function shortenAddress(address: string) {
     return address?.substring(0, 5) + '...' + address?.substring(address.length - 3, address.length)
@@ -34,7 +39,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
 
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-[50]">
+      <div className="fixed inset-x-0 top-0 z-[50] font-retro">
         <div className="container flex items-center justify-between">
           <div className="flex items-center space-x-[32px]">
             <Link href={'/'}>
@@ -55,7 +60,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
           </div>
           <div className="flex items-center space-x-[32px]">
             <div className="aspect-[394/63] w-[394px] bg-[url(/assets/game/button-yellow.svg)] bg-contain bg-no-repeat flex items-center px-[14px] pb-[0.5%]">
-              <div className="aspect-[169/40] w-[163px] bg-[url(/assets/game/button-green.svg)] bg-contain bg-no-repeat flex items-center px-[10px] cursor-pointer">
+              <div className="aspect-[169/40] w-[163px] bg-[url(/assets/game/button-green-2.svg)] bg-contain bg-no-repeat flex items-center px-[10px] cursor-pointer">
                 <img className="w-[20px] mr-[8px]" src="/assets/game/ic-coin.svg" alt="" />
                 <NumericFormat
                   displayType="text"
@@ -64,13 +69,24 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
                   thousandSeparator
                 />
               </div>
-              <Link href="/menu/spin">
-                <img
-                  className="h-[40px] ml-[4px] cursor-pointer transition-all active:translate-y-[2px]"
-                  src="/assets/game/button-menu.svg"
-                  alt=""
-                />
-              </Link>
+              {!menusPath?.includes(router.pathname) && (
+                <Link href="/menu/spin-race">
+                  <img
+                    className="h-[40px] ml-[4px] cursor-pointer transition-all active:translate-y-[2px]"
+                    src="/assets/game/button-menu.svg"
+                    alt=""
+                  />
+                </Link>
+              )}
+              {menusPath?.includes(router.pathname) && (
+                <Link href="/">
+                  <img
+                    className="h-[40px] ml-[4px] cursor-pointer transition-all active:translate-y-[2px]"
+                    src="/assets/game/button-back-to-race.svg"
+                    alt=""
+                  />
+                </Link>
+              )}
             </div>
             {/* <Link
               href="/leaderboard"
