@@ -7,7 +7,7 @@ export const YourGaragePage = () => {
   useEffect(() => {}, [address])
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-[240px]">
       <p className="text-center text-[#BDBDBD] text-[68px]">(Coming soon)</p>
     </div>
   )

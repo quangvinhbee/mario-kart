@@ -1,3 +1,4 @@
+import { ButtonGreen } from '@/components/common/Button/ButtonGreen'
 import { NumericFormat } from 'react-number-format'
 import { useAccount } from 'wagmi'
 import { characterImage } from '../spin-race'
@@ -55,12 +56,12 @@ export const MarketplacePage = () => {
                 <img className="w-[22px]" src="/assets/game/ic-coin.svg" alt="" />
               </div>
               <div>
-                <button
+                <ButtonGreen
                   disabled={true}
-                  className="block aspect-[223/72] w-[108px] mx-auto mt-[12px] bg-[url(/assets/game/button-green.svg)] bg-no-repeat bg-contain text-[12px] font-retro cursor-pointer transition-all active:translate-y-[2px] disabled:opacity-60 disabled:active:translate-y-0"
+                  className="block mx-auto w-[108px] text-[12px] mt-[12px]"
                 >
                   Buy
-                </button>
+                </ButtonGreen>
               </div>
             </div>
           ))}

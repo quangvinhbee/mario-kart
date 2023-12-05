@@ -1,3 +1,4 @@
+import { ButtonGreen } from '@/components/common/Button/ButtonGreen'
 import { useState } from 'react'
 import { useAccount } from 'wagmi'
 import { SpinItem } from './SpinItem'
@@ -47,13 +48,9 @@ export const SpinRacePage = () => {
           </div>
         ))}
       </div>
-      <button
-        disabled={true}
-        className="block aspect-[223/72] w-[223px] mx-auto mt-[40px] bg-[url(/assets/game/button-green.svg)] bg-no-repeat bg-contain text-[24px] font-retro cursor-pointer transition-all active:translate-y-[2px] disabled:opacity-60 disabled:active:translate-y-0"
-        onClick={handleSpin}
-      >
+      <ButtonGreen disabled={true} className="block mx-auto w-[223px] text-[24px] mt-[40px]">
         Spin
-      </button>
+      </ButtonGreen>
     </div>
   )
 }
