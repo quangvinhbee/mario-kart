@@ -19,5 +19,9 @@ export const MarketplacePage = () => {
 
   useEffect(() => {}, [address])
 
-  return <></>
+  return <div className='max-w-[1000px] mx-auto'>
+<div className='flex items-center space-x-[16px]'>
+  
+</div>
+  </div>
 }

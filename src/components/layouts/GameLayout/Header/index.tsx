@@ -15,8 +15,6 @@ interface HeaderProps {
   [key: string]: any
 }
 
-const menusPath = gameMenu?.map((item) => item?.path)
-
 export function Header({ onClickMenu, ...props }: HeaderProps) {
   const { t } = useTranslation('translation', { keyPrefix: 'mainLayout' })
   const dispatch = useDispatch()
@@ -36,6 +34,8 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
   function shortenAddress(address: string) {
     return address?.substring(0, 5) + '...' + address?.substring(address.length - 3, address.length)
   }
+
+  const menusPath = gameMenu?.map((item) => item?.path)
 
   return (
     <>
