@@ -48,7 +48,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
               <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
               <p className="uppercase">X (Twitter)</p>
             </Link>
-            <Link href={'/about-us'} className="flex items-center space-x-[8px]" target="_blank">
+            <Link href={'/about-us'} className="flex items-center space-x-[8px]">
               <img className="w-[32px]" src="/assets/game/ic-arrow-right.svg" alt="" />
               <p className="uppercase">ABOUT US</p>
             </Link>

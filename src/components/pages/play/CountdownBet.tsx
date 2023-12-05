@@ -173,6 +173,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
                         (displayType === DisplayType.BetAmount ? item?.amount : item?.totalBet) ||
                         ''
                       }
+                      onValueChange={(e) => item?.onChange(+e?.value || 0)}
                       thousandSeparator
                       disabled={isBetted}
                       placeholder="0"
