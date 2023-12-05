@@ -269,6 +269,11 @@ module.exports = {
           from: { opacity: 1, transform: 'translateX(0)' },
           to: { opacity: 0, transform: 'translateX(100%)' },
         },
+        wiggleScale: {
+          '0%': { opacity: 1, transform: 'scale(1)' },
+          '50%': { opacity: 0.95, transform: 'scale(0.95)' },
+          '100%': { opacity: 1, transform: 'scale(1)' },
+        },
         scaleUp: {
           from: { opacity: 0, transform: 'scale(0)' },
           to: { opacity: 1, transform: 'scale(1)' },
@@ -298,6 +303,7 @@ module.exports = {
         'slide-out-left': 'slideOutLeft .2s ease-out forwards',
         'slide-in-right': 'slideInRight .2s ease-in',
         'slide-out-right': 'slideOutRight .2s ease-out forwards',
+        'wiggle-scale': 'wiggleScale 1s ease-out infinite',
       },
     },
   },

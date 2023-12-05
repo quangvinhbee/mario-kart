@@ -10,6 +10,7 @@ export const characterImage: Record<string, string> = {
   yoshi: '/assets/game/char-yoshi.png',
   goomba: '/assets/game/char-goomba.png',
   peach: '/assets/game/char-peach.png',
+  coin: '/assets/game/ic-coin.svg',
 }
 
 export const SpinRacePage = () => {
