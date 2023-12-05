@@ -1,4 +1,5 @@
 import { updateOpenSoundSetting } from '@/redux/common/setting'
+import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -40,9 +41,11 @@ export const SoundButton = () => {
 
   return (
     <div className="fixed bottom-[24px] right-[24px] space-x-[16px]">
-      <button className="cursor-pointer transition-all active:translate-y-[4px]">
-        <img className="h-[52px] w-[52px]" src="/assets/game/button-question.png" alt="" />
-      </button>
+      <Link href='/how-to-play'>
+        <button className="cursor-pointer transition-all active:translate-y-[4px]">
+          <img className="h-[52px] w-[52px]" src="/assets/game/button-question.png" alt="" />
+        </button>
+      </Link>
       <button
         className="cursor-pointer transition-all active:translate-y-[4px]"
         onClick={handleOffSound}
