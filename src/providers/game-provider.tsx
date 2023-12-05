@@ -231,13 +231,19 @@ export function MarioProvider(props: any) {
     }
     setBalanceLoad(false)
   }
-
+  console.log(yourBet)
   const betHandler = async (dataBetting: any) => {
     try {
       dataBetting.key = connectedUser?.secret
       dataBetting.wallet = address.toLowerCase()
       dataBetting.idGame = currentGame._id
-      setYourBet(dataBetting)
+      if (yourBet?.idGame == currentGame._id) {
+        yourBet.mario.amount += yourBet.mario.amount + dataBetting.mario.amount
+        yourBet.yoshi.amount += yourBet.yoshi.amount + dataBetting.yoshi.amount
+        yourBet.bower.amount += yourBet.bower.amount + dataBetting.bower.amount
+        yourBet.toad.amount += yourBet.toad.amount + dataBetting.toad.amount
+        setYourBet({ ...yourBet })
+      } else setYourBet(dataBetting)
       const data = await fetch(`${apiURL}/placeBet`, {
         method: 'POST',
         headers: {
