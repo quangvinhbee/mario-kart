@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { NumericFormat } from 'react-number-format'
 import { PlayBanner } from '../home/PlayBanner'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 export enum RaceStatus {
   Preview,
@@ -13,6 +15,22 @@ export enum RaceStatus {
 }
 
 export const Leaderboard = () => {
+  const [leaderboardData, setLeaderboardData] = useState([])
+  const apiURL = 'https://api.0xrace.io'
+  const getLeaderboard = async () => {
+    try {
+      const data = await axios.get(`${apiURL}/leaderboard`)
+      const leaderboard = data.data
+      console.log(leaderboard)
+      setLeaderboardData(leaderboard)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  useEffect(() => {
+    getLeaderboard()
+  }, [])
+
   return (
     <>
       <div className="fixed inset-0">
@@ -36,10 +54,14 @@ export const Leaderboard = () => {
 
               <div className="mt-[40px] overflow-y-auto h-[240px] pr-[16px]">
                 <div className="space-y-[24px]">
-                  {[...Array(10)].map((item, i) => (
+                  {leaderboardData.map((item, i) => (
                     <div className="flex items-center" key={i}>
-                      <p className="flex-grow">{shortenAddress('0x1233213213121321589')}</p>
-                      <NumericFormat displayType="text" value={12345} thousandSeparator />
+                      <p className="flex-grow">{shortenAddress(item?.wallet || '')}</p>
+                      <NumericFormat
+                        displayType="text"
+                        value={item?.balance || 0}
+                        thousandSeparator
+                      />
                       <img
                         className="ml-[8px] inline-block w-[16px]"
                         src="/assets/game/ic-coin.svg"

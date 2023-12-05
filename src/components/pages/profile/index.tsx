@@ -19,9 +19,11 @@ export enum RaceStatus {
 
 export const ProfilePage = () => {
   const { address } = useAccount()
-  const { depositHandler, userBalance, refreshBalance, depositLoad } = useMarioKart()
+  const { depositHandler, userBalance, refreshBalance, depositLoad, withdrawHandler } =
+    useMarioKart()
 
   const [depositAmount, setDepositAmount] = useState(0)
+  const [withdrawAmount, setWithdrawAmount] = useState(0)
 
   useEffect(() => {}, [address])
 
@@ -93,6 +95,8 @@ export const ProfilePage = () => {
                   <NumericFormat
                     className="h-[30px] w-[80%] font-retro outline-none"
                     thousandSeparator
+                    value={withdrawAmount}
+                    onChange={(e) => setWithdrawAmount(Number(e.target.value.replace(',', '')))}
                   />
                   <img
                     className="ml-[8px] inline-block w-[16px] cursor-pointer transition-all active:translate-y-[4px]"
@@ -100,7 +104,12 @@ export const ProfilePage = () => {
                     alt=""
                   />
                 </div>
-                <img className="w-[89px]" src="/assets/game/button-confirm.svg" alt="" />
+                <img
+                  className="w-[89px] cursor-pointer"
+                  src="/assets/game/button-confirm.svg"
+                  alt=""
+                  onClick={() => withdrawHandler(withdrawAmount)}
+                />
               </div>
               <div className="mt-[40px] flex items-center justify-between">
                 <div className="w-[48%]">

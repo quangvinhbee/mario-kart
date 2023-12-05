@@ -150,34 +150,19 @@ export function MarioProvider(props: any) {
   }
 
   const withdrawHandler = async (value: any) => {
+    if (!connectedUser?.secret) return
     const userAddress = address
-    setWithdrawLoad(true)
-
-    const req = await fetch(`${apiURL}/cashOut`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cashoutAmount: value,
-        sign: secretKey,
-        wallet: userAddress,
-      }),
+    const data = await axios.post(`${apiURL}/withdraw`, {
+      wallet: address,
+      key: connectedUser?.secret,
+      amount: value,
     })
-    toast.success('Waiting for confirmation...', toastOption)
-    const data2 = await req.json()
-
-    if (data2 && data2.result.hash) {
-      toast.success(`Withdraw success.`, toastOption)
-      refreshBalance()
-    } else if (data2 && data2.result) {
-      toast.success('Waiting Transaction', toastOption)
+    const res = data.data
+    if (res?.status == 200) {
+      toast.success(res?.message)
+    } else if (res?.status == 401) {
+      toast.error(res.message)
     }
-    // $('.close-button').trigger('click')
-    setWithdrawLoad(false)
-    setTypeDialog(null)
-    // dispatch(handleUpdateSetting('' as any))
   }
 
   const refreshBalance = async () => {
