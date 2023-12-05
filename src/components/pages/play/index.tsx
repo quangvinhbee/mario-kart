@@ -18,7 +18,7 @@ export const PlayPage = () => {
   const { betHandler, currentGame, userBalance } = useMarioKart()
 
   useEffect(() => {
-    if (Number(currentGame?.endAt || 0) < new Date().getTime()) {
+    if (Number(currentGame?.endAt) < new Date().getTime()) {
       setStatusActive(RaceStatus.RaceRunning)
     } else {
       setStatusActive(RaceStatus.Bet)

@@ -3,6 +3,7 @@ import classNames from 'classnames/bind'
 import { FC, useEffect, useRef, useState } from 'react'
 import { RaceStatus } from '.'
 import classes from './SuperMarioKart.module.scss'
+import { useMarioKart } from '@/providers/game-provider'
 
 const cx = classNames.bind(classes)
 
@@ -12,11 +13,14 @@ interface RaceProps {
   onEndRace?: VoidFunction
 }
 
-const TOTAL_TIME = 30
-const TIME_INTERVAL = 200
-const TOTAL_STEP = Math.round(TOTAL_TIME * (1000 / TIME_INTERVAL))
-
 export const Race: FC<RaceProps> = (props) => {
+  const { currentGame } = useMarioKart()
+
+  const TOTAL_TIME = (currentGame?.endAt - new Date().getTime()) / 1000 + 30
+  console.log('TOTAL_TIME', TOTAL_TIME)
+  const TIME_INTERVAL = 200
+  const TOTAL_STEP = Math.round(TOTAL_TIME * (1000 / TIME_INTERVAL))
+
   const { raceStatus, winRacerIndex, onEndRace } = props
   const containerRef = useRef<HTMLDivElement>(null)
   const stepRemaining = useRef<number>(TOTAL_STEP)
