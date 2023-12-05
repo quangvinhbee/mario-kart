@@ -43,6 +43,43 @@ export const Race: FC<RaceProps> = (props) => {
     { name: 'toad', frameImage: '/assets/game/frame-toad.png', position: 0 },
   ])
 
+  const getYourBet = async () => {
+    try {
+      let data = []
+      if (yourBet?.mario?.amount > 0)
+        data.push({
+          name: 'mario',
+          frameImage: '/assets/game/frame-mario.png',
+          position: yourBet?.mario?.amount,
+        })
+      if (yourBet?.yoshi?.amount > 0)
+        data.push({
+          name: 'yoshi',
+          frameImage: '/assets/game/frame-yoshi.png',
+          position: yourBet?.yoshi?.amount,
+        })
+      if (yourBet?.bower?.amount > 0)
+        data.push({
+          name: 'bower',
+          frameImage: '/assets/game/frame-bower.png',
+          position: yourBet?.bower?.amount,
+        })
+      if (yourBet?.toad?.amount > 0)
+        data.push({
+          name: 'toad',
+          frameImage: '/assets/game/frame-toad.png',
+          position: yourBet?.toad?.amount,
+        })
+      setRacePosition([...data])
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+    getYourBet()
+  }, [yourBet])
+
   useEffect(() => {
     let interval: NodeJS.Timer
     function animate() {
@@ -135,7 +172,7 @@ export const Race: FC<RaceProps> = (props) => {
                           className={
                             'w-[calc(100%-36px-16px)] text-right font-retro text-[20px] outline-none placeholder:text-black'
                           }
-                          value={0}
+                          value={item?.position}
                           thousandSeparator
                         />
                         <img

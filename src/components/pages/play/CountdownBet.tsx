@@ -27,44 +27,44 @@ export const CountdownBet = (props: CountdownBetProps) => {
   const [betYoshiAmount, setBetYoshiAmount] = useState(0)
   const [betBowerAmount, setBetBowerAmount] = useState(0)
   const [betToadAmount, setBetToadAmount] = useState(0)
+  const [disableBet, setDisableBet] = useState(false)
   const [isBetted, setIsBetted] = useState(false)
   const [secondsRemaining, setSecondsRemaining] = useState(0)
   const [displayType, setDisplayType] = useState(DisplayType.BetAmount)
-
-  const betPlaces = [
+  const [totalBetAll, settotalBetAll] = useState([
     {
       name: 'mario',
       frameImage: '/assets/game/frame-mario.png',
       amount: betMarioAmount,
       onChange: setBetMarioAmount,
-      totalBet: 100000,
+      totalBet: 0,
     },
     {
       name: 'yoshi',
       frameImage: '/assets/game/frame-yoshi.png',
       amount: betYoshiAmount,
       onChange: setBetYoshiAmount,
-      totalBet: 100000,
+      totalBet: 0,
     },
     {
       name: 'bower',
       frameImage: '/assets/game/frame-bower.png',
       amount: betBowerAmount,
       onChange: setBetBowerAmount,
-      totalBet: 100000,
+      totalBet: 0,
     },
     {
       name: 'toad',
       frameImage: '/assets/game/frame-toad.png',
       amount: betToadAmount,
       onChange: setBetToadAmount,
-      totalBet: 100000,
+      totalBet: 0,
     },
-  ]
+  ])
 
   const onBet = async () => {
     try {
-      if (isBetted) return
+      if (disableBet) return
       let dataBetting = {
         mario: {
           amount: betMarioAmount,
@@ -81,7 +81,6 @@ export const CountdownBet = (props: CountdownBetProps) => {
       }
 
       await betHandler(dataBetting)
-      setIsBetted(true)
     } catch (e) {
       console.log(e.message)
     }
@@ -124,7 +123,45 @@ export const CountdownBet = (props: CountdownBetProps) => {
     const interval = setInterval(() => {
       const s = (new Date(Number(currentGame?.endAt || 0)).getTime() - new Date().getTime()) / 1000
       setSecondsRemaining(Math.max(Math.round(s), 0))
+      if (s <= 5) {
+        setDisableBet(true)
+      } else {
+        setDisableBet(false)
+      }
     }, 1000)
+
+    settotalBetAll([
+      ...[
+        {
+          name: 'mario',
+          frameImage: '/assets/game/frame-mario.png',
+          amount: betMarioAmount,
+          onChange: setBetMarioAmount,
+          totalBet: currentGame.totalMario,
+        },
+        {
+          name: 'yoshi',
+          frameImage: '/assets/game/frame-yoshi.png',
+          amount: betYoshiAmount,
+          onChange: setBetYoshiAmount,
+          totalBet: currentGame.totalYoshi,
+        },
+        {
+          name: 'bower',
+          frameImage: '/assets/game/frame-bower.png',
+          amount: betBowerAmount,
+          onChange: setBetBowerAmount,
+          totalBet: currentGame.totalBower,
+        },
+        {
+          name: 'toad',
+          frameImage: '/assets/game/frame-toad.png',
+          amount: betToadAmount,
+          onChange: setBetToadAmount,
+          totalBet: currentGame.totalToad,
+        },
+      ],
+    ])
 
     return () => {
       clearInterval(interval)
@@ -145,10 +182,10 @@ export const CountdownBet = (props: CountdownBetProps) => {
         </div>
         <div
           className={`relative flex w-[60%] max-w-[760px] flex-wrap justify-between pt-[52px] ${
-            isBetted && 'opacity-75'
+            disableBet && 'opacity-75'
           }`}
         >
-          {betPlaces?.map((item, i) => (
+          {totalBetAll?.map((item, i) => (
             <div className="mb-[32px] w-[45%]" key={'' + i + DisplayType.BetAmount}>
               <div className="flex justify-between">
                 <p className="text-[14px]">{item?.name}</p>
@@ -175,7 +212,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
                       }
                       onValueChange={(e) => item?.onChange(+e?.value || 0)}
                       thousandSeparator
-                      disabled={isBetted}
+                      disabled={disableBet}
                       placeholder="0"
                     />
                     <img
@@ -223,7 +260,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
           </div>
           <img
             className={`animate-move-down-up mx-auto mt-[32px] max-w-[337px] cursor-pointer ${
-              isBetted && 'opacity-70'
+              disableBet && 'opacity-70'
             }`}
             src="/assets/game/button-bet.png"
             alt=""
