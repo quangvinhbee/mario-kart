@@ -18,12 +18,11 @@ interface RaceProps {
 export const Race: FC<RaceProps> = (props) => {
   const { betHandler, yourBet, currentGame } = useMarioKart()
 
-  console.log({ betHandler, yourBet, currentGame })
-
   const TOTAL_TIME = (currentGame?.endAt - new Date().getTime()) / 1000 + 30
-  console.log('TOTAL_TIME', TOTAL_TIME)
   const TIME_INTERVAL = 200
   const TOTAL_STEP = Math.round(TOTAL_TIME * (1000 / TIME_INTERVAL))
+
+  console.log({ betHandler, yourBet, currentGame, TOTAL_TIME })
 
   const { raceStatus, winRacerIndexRef, onEndRace } = props
   const containerRef = useRef<HTMLDivElement>(null)
@@ -78,15 +77,14 @@ export const Race: FC<RaceProps> = (props) => {
         }
       }
 
-      const position = racerPosition?.map((item) => ({
-        ...item,
-        position: racers.current
-          ?.find((race) => race?.name === item?.name)
-          ?.ref?.current?.getBoundingClientRect().x,
-      }))
-      position.sort((a, b) => b?.position - a?.position)
-
-      setRacePosition(position)
+      // const position = racerPosition?.map((item) => ({
+      //   ...item,
+      //   position: racers.current
+      //     ?.find((race) => race?.name === item?.name)
+      //     ?.ref?.current?.getBoundingClientRect().x,
+      // }))
+      // position.sort((a, b) => b?.position - a?.position)
+      // setRacePosition(position)
 
       if (raceStatus === RaceStatus.RaceRunning && stepRemaining.current > 0) {
         containerRef.current.style.transitionDuration = TIME_INTERVAL + 'ms'
