@@ -12,7 +12,7 @@ import Web3 from 'web3'
 
 // ================== CONFIG NEED CHANGE ================== //
 const poolAddress = '0x407FDe45cB6b7FcD5e8266ba434d9fC0c79277c2'
-const tokenAddress = '0xB420983029fAd280d6243c7078014eE128a4ac26' // mCarrot
+const tokenAddress = '0x98F566312237de4BBd80E427215696C80994D325'
 const chain = 'bsc testnet'
 
 // const apiURL = 'http://localhost:7007'
