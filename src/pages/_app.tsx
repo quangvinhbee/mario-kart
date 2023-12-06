@@ -79,11 +79,11 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
         <meta name="viewport" content="width=1200" user-scalable="0" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge, chrome=1" />
       </Head>
-      <DefaultSeo {...SEO} />
 
       <Web3ReactProvider getLibrary={getLibrary}>
-        <WagmiConfig config={wagmiConfig}>
-          <Provider store={store}>
+        <Provider store={store}>
+          <DefaultSeo {...SEO} />
+          <WagmiConfig config={wagmiConfig}>
             <QueryClientProvider client={new QueryClient()}>
               <PersistGate persistor={persistor}>
                 {() => (
@@ -110,8 +110,8 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
                 )}
               </PersistGate>
             </QueryClientProvider>
-          </Provider>
-        </WagmiConfig>
+          </WagmiConfig>
+        </Provider>
         <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
       </Web3ReactProvider>
     </>
