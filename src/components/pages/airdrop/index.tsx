@@ -1,11 +1,38 @@
 import { ButtonGreen } from '@/components/common/Button/ButtonGreen'
+import axios from 'axios'
+import { isAddress } from 'ethers/lib/utils'
 import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { useAccount } from 'wagmi'
 
 export const AirdropPage = () => {
   const { address } = useAccount()
   const [claimTestnetToken, setClaimTestnetToken] = useState('')
   const [airdropToken, setAirdropToken] = useState('')
+  const [isClaiming, setIsClaiming] = useState(false)
+
+  const claim = async () => {
+    try {
+      if (!isAddress(claimTestnetToken)) {
+        toast.error('Invalid ERC20 address, please re-enter correctly.')
+        return
+      }
+      setIsClaiming(true)
+      const data = await axios.post('https://api.0xrace.io/claim', {
+        wallet: claimTestnetToken,
+      })
+      const res = data.data
+      if (res.status == 200) {
+        toast.success(res.message)
+      } else if (res.status == 401) {
+        toast.error(res.message)
+      }
+    } catch (e) {
+      console.log(e.message)
+    } finally {
+      setIsClaiming(false)
+    }
+  }
 
   useEffect(() => {}, [address])
 
@@ -23,10 +50,17 @@ export const AirdropPage = () => {
             value={claimTestnetToken}
             onChange={(e) => setClaimTestnetToken(e?.target?.value)}
             placeholder="Wallet address"
+            disabled={isClaiming}
           />
         </div>
         <div className="animate-move-down-up">
-          <ButtonGreen className="ml-[16px] w-[140px] text-[15px]">Claim</ButtonGreen>
+          <ButtonGreen
+            className="ml-[16px] w-[140px] text-[15px]"
+            onClick={() => claim()}
+            disabled={isClaiming}
+          >
+            {isClaiming ? 'Claiming...' : 'Claim'}
+          </ButtonGreen>
         </div>
       </div>
       <p className="text-[36px] mt-[60px]">AIRDROP TOKEN</p>
