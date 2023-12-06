@@ -8,6 +8,7 @@ import { IoReload } from 'react-icons/io5'
 import { NumericFormat } from 'react-number-format'
 import { useAccount } from 'wagmi'
 import { PlayBanner } from '../home/PlayBanner'
+import axios from 'axios'
 
 export enum RaceStatus {
   Preview,
@@ -23,8 +24,23 @@ export const ProfilePage = () => {
 
   const [depositAmount, setDepositAmount] = useState(0)
   const [withdrawAmount, setWithdrawAmount] = useState(0)
+  const [balanceWallet, setBalanceWallet] = useState(0)
 
-  useEffect(() => {}, [address])
+  const getBalanceWallet = async () => {
+    try {
+      let data = await axios.post('https://api.0xrace.io/balanceWallet', { wallet: address })
+      const res = data.data
+      if (res.status == 200) {
+        setBalanceWallet(res.balance)
+      }
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+
+  useEffect(() => {
+    getBalanceWallet()
+  }, [address])
 
   return (
     <>
@@ -51,9 +67,23 @@ export const ProfilePage = () => {
                 <p>{shortenAddress(address)}</p>
               </div>
               <div className="mt-[16px] flex justify-between text-[12px]">
-                <p>Balance</p>
+                <p>Balance In game</p>
                 <p className="flex items-center gap-2">
                   <NumericFormat displayType="text" value={userBalance} thousandSeparator />{' '}
+                  <button className="cursor-pointer" onClick={() => refreshBalance()}>
+                    <IoReload />
+                  </button>{' '}
+                  <img
+                    className="ml-[8px] inline-block w-[16px]"
+                    src="/assets/game/ic-coin.svg"
+                    alt=""
+                  />
+                </p>
+              </div>
+              <div className="mt-[16px] flex justify-between text-[12px]">
+                <p>Balance Wallet</p>
+                <p className="flex items-center gap-2">
+                  <NumericFormat displayType="text" value={balanceWallet} thousandSeparator />{' '}
                   <button className="cursor-pointer" onClick={() => refreshBalance()}>
                     <IoReload />
                   </button>{' '}
