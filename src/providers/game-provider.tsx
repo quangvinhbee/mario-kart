@@ -188,8 +188,9 @@ export function MarioProvider(props: any) {
     } else {
       let bal = data2?.balance
       let temp = Number(bal - Number(userBalance))
-      console.log(`+ ${temp.toLocaleString('en')}`, bal, userBalance)
-      if (temp > 1) {
+      let preBalance = window.localStorage.getItem('balance-0xrace')
+      if (temp > 1 && temp != Number(preBalance)) {
+        window.localStorage.setItem('balance-0xrace', temp.toString())
         toast(`+ ${temp.toLocaleString('en')}`, {
           duration: 4000,
           position: 'top-center',
@@ -225,7 +226,6 @@ export function MarioProvider(props: any) {
           // Custom Icon
         })
       }
-      console.log(Number(data2?.balance).toFixed(2))
       // setUserBalance(Number(Number(data2?.balance).toLocaleString('en')))
       setUserBalance(Number(Number(data2?.balance).toFixed(2)))
     }
