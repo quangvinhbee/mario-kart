@@ -1,11 +1,9 @@
 import { GameLayout } from '@/components/layouts/GameLayout'
 import { HomePage } from '@/components/pages/home'
-import { NextSeo } from 'next-seo'
 
 const Page = () => {
   return (
     <>
-      <NextSeo title="0xRace Erc-20" />
       <HomePage />
     </>
   )
