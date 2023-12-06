@@ -26,7 +26,7 @@ export const AboutUsPage = () => {
         <div className="w-[55%]">
           <PlayBanner />
         </div>
-        <div className="absolute top-[40px] right-[5%] w-[40%] max-w-[487px] z-[100]">
+        <div className="absolute top-[60px] right-[5%] w-[40%] max-w-[487px] z-[100]">
           <div className="relative w-full">
             <Image
               className="aspect-[487/583] w-full"
@@ -51,37 +51,39 @@ export const AboutUsPage = () => {
                   />
                 </div>
                 <div className="w-[48%] space-y-[12px]">
-                  <Link href={'#'}>
-                    <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
-                      <img
-                        className="animate-move-left-right w-[32px]"
-                        src="/assets/game/ic-arrow-right.svg"
-                        alt=""
-                      />
-                      <p>Buy token</p>
-                    </a>
+                  <Link
+                    href={'#'}
+                    className="flex cursor-pointer items-center space-x-[8px]"
+                    target="_blank"
+                  >
+                    <img
+                      className="animate-move-left-right w-[32px]"
+                      src="/assets/game/ic-arrow-right.svg"
+                      alt=""
+                    />
+                    <p>Buy token</p>
                   </Link>
-                  <Link href={'#'}>
-                    <a className="flex cursor-pointer items-center space-x-[8px]" target="_blank">
-                      <img
-                        className="animate-move-left-right w-[32px]"
-                        src="/assets/game/ic-arrow-right.svg"
-                        alt=""
-                      />
-                      <p>view chart</p>
-                    </a>
+                  <Link
+                    href={'#'}
+                    className="flex cursor-pointer items-center space-x-[8px]"
+                    target="_blank"
+                  >
+                    <img
+                      className="animate-move-left-right w-[32px]"
+                      src="/assets/game/ic-arrow-right.svg"
+                      alt=""
+                    />
+                    <p>view chart</p>
                   </Link>
                 </div>
               </div>
               <div className="mt-[8px] flex justify-end">
                 <Link href={'/'}>
-                  <a className="cursor-pointer">
-                    <img
-                      className="w-[104px] transition-all active:translate-y-[4px]"
-                      src="/assets/game/button-back.png"
-                      alt=""
-                    />
-                  </a>
+                  <img
+                    className="w-[104px] transition-all active:translate-y-[4px]"
+                    src="/assets/game/button-back.png"
+                    alt=""
+                  />
                 </Link>
               </div>
             </div>

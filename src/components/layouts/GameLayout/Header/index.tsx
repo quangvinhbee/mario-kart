@@ -70,7 +70,7 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
                 />
               </div>
               {!menusPath?.includes(router.pathname) && (
-                <Link href="/menu/spin-race">
+                <Link href="/spin-race">
                   <img
                     className="h-[40px] ml-[4px] cursor-pointer transition-all active:translate-y-[2px]"
                     src="/assets/game/button-menu.svg"
@@ -122,9 +122,13 @@ export function Header({ onClickMenu, ...props }: HeaderProps) {
                 </div>
                 <Link
                   href="/profile"
-                  className="absolute inset-x-0 top-[100%] mt-[12px] text-center text-[10px] uppercase"
+                  className="absolute inset-x-0 top-[100%] mt-[8px] text-center text-[10px] uppercase"
                 >
-                  View user information
+                  <img
+                    className="w-[251px] animate-wiggle-scale"
+                    src="/assets/game/button-deposit-withdraw.svg"
+                    alt=""
+                  />
                 </Link>
               </div>
             )}

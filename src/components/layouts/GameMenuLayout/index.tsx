@@ -46,27 +46,27 @@ export function GameMenuLayout({ ...props }) {
 
 export const gameMenu = [
   {
-    path: '/menu/spin-race',
+    path: '/spin-race',
     label: 'SPIN RACERS',
   },
   {
-    path: '/menu/marketplace',
+    path: '/marketplace',
     label: 'marketplace',
   },
   {
-    path: '/menu/your-garage',
+    path: '/your-garage',
     label: 'your garage',
   },
   {
-    path: '/menu/stake',
+    path: '/stake',
     label: 'Stake',
   },
   {
-    path: '/menu/airdrop',
+    path: '/airdrop',
     label: 'AIRDROP',
   },
   {
-    path: '/menu/upgrade',
+    path: '/upgrade',
     label: 'Upgrade',
   },
 ]
