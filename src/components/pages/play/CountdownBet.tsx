@@ -22,7 +22,7 @@ interface CountdownBetProps {
 }
 
 export const CountdownBet = (props: CountdownBetProps) => {
-  const { betHandler, currentGame, userBalance } = useMarioKart()
+  const { betHandler, currentGame, userBalance, yourBet } = useMarioKart()
   const { address } = useAccount()
 
   const [betMarioAmount, setBetMarioAmount] = useState(0)
@@ -40,6 +40,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
       amount: betMarioAmount,
       onChange: setBetMarioAmount,
       totalBet: 0,
+      yourBet: 0,
     },
     {
       name: 'yoshi',
@@ -47,6 +48,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
       amount: betYoshiAmount,
       onChange: setBetYoshiAmount,
       totalBet: 0,
+      yourBet: 0,
     },
     {
       name: 'bower',
@@ -54,6 +56,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
       amount: betBowerAmount,
       onChange: setBetBowerAmount,
       totalBet: 0,
+      yourBet: 0,
     },
     {
       name: 'toad',
@@ -61,6 +64,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
       amount: betToadAmount,
       onChange: setBetToadAmount,
       totalBet: 0,
+      yourBet: 0,
     },
   ])
 
@@ -83,6 +87,46 @@ export const CountdownBet = (props: CountdownBetProps) => {
       }
 
       await betHandler(dataBetting)
+      settotalBetAll([
+        ...[
+          {
+            name: 'mario',
+            frameImage: '/assets/game/frame-mario.png',
+            amount: betMarioAmount,
+            onChange: setBetMarioAmount,
+            totalBet: currentGame?.totalMario,
+            yourBet: totalBetAll[0].yourBet + (dataBetting?.mario.amount || 0),
+          },
+          {
+            name: 'yoshi',
+            frameImage: '/assets/game/frame-yoshi.png',
+            amount: betYoshiAmount,
+            onChange: setBetYoshiAmount,
+            totalBet: currentGame?.totalYoshi,
+            yourBet: totalBetAll[1].yourBet + (dataBetting?.yoshi.amount || 0),
+          },
+          {
+            name: 'bower',
+            frameImage: '/assets/game/frame-bower.png',
+            amount: betBowerAmount,
+            onChange: setBetBowerAmount,
+            totalBet: currentGame?.totalBower,
+            yourBet: totalBetAll[2].yourBet + (dataBetting?.bower.amount || 0),
+          },
+          {
+            name: 'toad',
+            frameImage: '/assets/game/frame-toad.png',
+            amount: betToadAmount,
+            onChange: setBetToadAmount,
+            totalBet: currentGame?.totalToad,
+            yourBet: totalBetAll[3].yourBet + (dataBetting?.toad.amount || 0),
+          },
+        ],
+      ])
+      setBetBowerAmount(0)
+      setBetMarioAmount(0)
+      setBetToadAmount(0)
+      setBetYoshiAmount(0)
     } catch (e) {
       console.log(e.message)
     }
@@ -140,6 +184,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
           amount: betMarioAmount,
           onChange: setBetMarioAmount,
           totalBet: currentGame?.totalMario,
+          yourBet: totalBetAll[0].yourBet,
         },
         {
           name: 'yoshi',
@@ -147,6 +192,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
           amount: betYoshiAmount,
           onChange: setBetYoshiAmount,
           totalBet: currentGame?.totalYoshi,
+          yourBet: totalBetAll[1].yourBet,
         },
         {
           name: 'bower',
@@ -154,6 +200,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
           amount: betBowerAmount,
           onChange: setBetBowerAmount,
           totalBet: currentGame?.totalBower,
+          yourBet: totalBetAll[2].yourBet,
         },
         {
           name: 'toad',
@@ -161,6 +208,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
           amount: betToadAmount,
           onChange: setBetToadAmount,
           totalBet: currentGame?.totalToad,
+          yourBet: totalBetAll[3].yourBet,
         },
       ],
     ])
@@ -168,7 +216,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
     return () => {
       clearInterval(interval)
     }
-  }, [currentGame])
+  }, [currentGame, yourBet])
 
   return (
     <>
@@ -191,7 +239,20 @@ export const CountdownBet = (props: CountdownBetProps) => {
             <div className="mb-[32px] w-[45%]" key={'' + i + DisplayType.BetAmount}>
               <div className="flex justify-between">
                 <p className="text-[14px]">{item?.name}</p>
-                <p>{displayType === DisplayType.BetAmount ? 'Bet amount' : 'Total Bet'}</p>
+                <p>
+                  {displayType === DisplayType.BetAmount ? (
+                    <div className="">
+                      Your Bet: {item.yourBet}
+                      <img
+                        className="ml-[4px] inline-block w-[16px]"
+                        src="/assets/game/ic-coin.svg"
+                        alt=""
+                      />
+                    </div>
+                  ) : (
+                    'Total Bet'
+                  )}
+                </p>
               </div>
               <div className="flex justify-between">
                 <img className="w-[24%]" src={item?.frameImage} alt="" />
@@ -230,13 +291,14 @@ export const CountdownBet = (props: CountdownBetProps) => {
                       alt=""
                     />
                   )}
-                  {displayType === DisplayType.BetAmount && !!item?.amount && (
-                    <img
-                      className="absolute bottom-0 right-0 inline-block w-[46px] translate-x-[75%]"
-                      src="/assets/game/tick-active.png"
-                      alt=""
-                    />
-                  )}
+                  {displayType === DisplayType.BetAmount &&
+                    (!!item?.amount || item?.yourBet > 0) && (
+                      <img
+                        className="absolute bottom-0 right-0 inline-block w-[46px] translate-x-[75%]"
+                        src="/assets/game/tick-active.png"
+                        alt=""
+                      />
+                    )}
                 </div>
               </div>
             </div>

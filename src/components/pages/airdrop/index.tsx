@@ -34,7 +34,9 @@ export const AirdropPage = () => {
     }
   }
 
-  useEffect(() => {}, [address])
+  useEffect(() => {
+    setClaimTestnetToken(address)
+  }, [address])
 
   return (
     <div className="max-w-[1000px] mx-auto">

@@ -350,6 +350,12 @@ export function MarioProvider(props: any) {
   }
 
   useEffect(() => {
+    if (currentGame?._id != yourBet?.idGame && yourBet) {
+      setYourBet(null)
+    }
+  }, [currentGame])
+
+  useEffect(() => {
     if (localStorage.getItem('mario-kart')) {
       const currentUser = JSON.parse(localStorage.getItem('mario-kart'))
       setCuser(currentUser)

@@ -81,15 +81,6 @@ export const RewardPage = () => {
         <RacePreview />
       </div>
       <div className="container relative flex w-full flex-wrap items-center justify-between px-[16px] pt-[100px]">
-        <div className="flex w-full items-center justify-end">
-          <NumericFormat
-            displayType="text"
-            className="text-[24px]"
-            value={Number(userBalance)}
-            thousandSeparator
-          />
-          <img className="ml-[16px] inline-block w-[36px]" src="/assets/game/ic-coin.svg" alt="" />
-        </div>
         <div className="w-[40%]">
           <img data-aos="zoom-in" className="mx-auto max-w-[440px]" src={winnerImage} alt="" />
         </div>
