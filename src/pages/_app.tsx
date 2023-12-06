@@ -78,6 +78,7 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
       <Head>
         <meta name="viewport" content="width=1200" user-scalable="0" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+        <link rel="icon" type="image/png" href={'/favicon.png'} />
       </Head>
 
       <Web3ReactProvider getLibrary={getLibrary}>
