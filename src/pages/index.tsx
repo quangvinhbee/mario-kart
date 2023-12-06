@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo'
 const Page = () => {
   return (
     <>
-      <NextSeo title="How to play | 0xRace Erc-20" />
+      <NextSeo title="0xRace Erc-20" />
       <HomePage />
     </>
   )
