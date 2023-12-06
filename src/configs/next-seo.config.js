@@ -16,14 +16,14 @@ export default {
     site_name: '0xRace Erc-20',
     images: [
       {
-        url: '/images/image-seo.jpg',
+        url: '/assets/common/image-seo.jpg',
         width: 800,
         height: 600,
         alt: '0xRace Erc-20',
         type: 'image/*',
       },
       {
-        url: '/images/image-seo.jpg',
+        url: '/assets/common/image-seo.jpg',
         width: 900,
         height: 800,
         alt: '0xRace Erc-20',
