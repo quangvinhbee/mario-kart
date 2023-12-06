@@ -1,4 +1,3 @@
-import I18NextWrapper from '@/components/wrapper/I18NextWrapper'
 import OverrideMuiTheme from '@/components/wrapper/OverrideMuiTheme'
 import ThemeWrapper from '@/components/wrapper/ThemeWrapper'
 import { useNextServerSidePropsInterception } from '@/lib/hooks/useNextServerSidePropsInterception'
@@ -20,10 +19,11 @@ import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { bscTestnet } from 'wagmi/chains'
 import store, { persistor } from '../redux/store'
 
+import ForceLandscapeWrapper from '@/components/wrapper/ForceLandscapeWrapper'
 import { MarioProvider } from '@/providers/game-provider'
 import Aos from 'aos'
-import '../styles/style.scss'
 import Head from 'next/head'
+import '../styles/style.scss'
 
 declare global {
   interface Window {
@@ -87,9 +87,11 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
                   <MarioProvider>
                     <OverrideMuiTheme>
                       <ThemeWrapper>
-                        <Layout {...layoutProps}>
-                          <Component {...pageProps} />
-                        </Layout>
+                        <ForceLandscapeWrapper>
+                          <Layout {...layoutProps}>
+                            <Component {...pageProps} />
+                          </Layout>
+                        </ForceLandscapeWrapper>
                         <Toaster
                           position="bottom-right"
                           toastOptions={{
