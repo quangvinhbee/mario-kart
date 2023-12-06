@@ -1,5 +1,6 @@
 import OverrideMuiTheme from '@/components/wrapper/OverrideMuiTheme'
 import ThemeWrapper from '@/components/wrapper/ThemeWrapper'
+import SEO from '@/configs/next-seo.config.js'
 import { useNextServerSidePropsInterception } from '@/lib/hooks/useNextServerSidePropsInterception'
 import { Web3Provider } from '@ethersproject/providers'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -22,6 +23,7 @@ import store, { persistor } from '../redux/store'
 import ForceLandscapeWrapper from '@/components/wrapper/ForceLandscapeWrapper'
 import { MarioProvider } from '@/providers/game-provider'
 import Aos from 'aos'
+import { DefaultSeo } from 'next-seo'
 import Head from 'next/head'
 import '../styles/style.scss'
 
@@ -76,11 +78,13 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
       <Head>
         <meta name="viewport" content="width=1200" user-scalable="0" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+        <link rel="icon" type="image/png" href={'/favicon.png'} />
       </Head>
 
       <Web3ReactProvider getLibrary={getLibrary}>
-        <WagmiConfig config={wagmiConfig}>
-          <Provider store={store}>
+        <Provider store={store}>
+          <DefaultSeo {...SEO} />
+          <WagmiConfig config={wagmiConfig}>
             <QueryClientProvider client={new QueryClient()}>
               <PersistGate persistor={persistor}>
                 {() => (
@@ -107,8 +111,8 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
                 )}
               </PersistGate>
             </QueryClientProvider>
-          </Provider>
-        </WagmiConfig>
+          </WagmiConfig>
+        </Provider>
         <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
       </Web3ReactProvider>
     </>
