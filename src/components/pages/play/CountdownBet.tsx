@@ -3,6 +3,7 @@ import { useMarioKart } from '@/providers/game-provider'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { NumericFormat } from 'react-number-format'
+import { useAccount } from 'wagmi'
 
 export enum RaceStatus {
   Preview,
@@ -22,6 +23,7 @@ interface CountdownBetProps {
 
 export const CountdownBet = (props: CountdownBetProps) => {
   const { betHandler, currentGame, userBalance } = useMarioKart()
+  const { address } = useAccount()
 
   const [betMarioAmount, setBetMarioAmount] = useState(0)
   const [betYoshiAmount, setBetYoshiAmount] = useState(0)
@@ -64,7 +66,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
 
   const onBet = async () => {
     try {
-      if (disableBet) return
+      if (disableBet || !address) return
       let dataBetting = {
         mario: {
           amount: betMarioAmount,
@@ -182,7 +184,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
         </div>
         <div
           className={`relative flex w-[60%] max-w-[760px] flex-wrap justify-between pt-[52px] ${
-            disableBet && 'opacity-75'
+            (disableBet || !address) && 'opacity-75'
           }`}
         >
           {totalBetAll?.map((item, i) => (
@@ -212,7 +214,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
                       }
                       onValueChange={(e) => item?.onChange(+e?.value || 0)}
                       thousandSeparator
-                      disabled={disableBet}
+                      disabled={disableBet || !address}
                       placeholder="0"
                     />
                     <img
@@ -260,7 +262,7 @@ export const CountdownBet = (props: CountdownBetProps) => {
           </div>
           <img
             className={`animate-move-down-up mx-auto mt-[32px] max-w-[337px] cursor-pointer ${
-              disableBet && 'opacity-70'
+              (disableBet || !address) && 'opacity-70'
             }`}
             src="/assets/game/button-bet.png"
             alt=""
