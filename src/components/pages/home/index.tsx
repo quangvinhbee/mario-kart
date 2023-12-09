@@ -15,6 +15,19 @@ export const HomePage = () => {
         <PlayBanner />
         <div className="pointer-events-auto absolute left-[64px] top-[120px] space-y-[24px]">
           <Link
+            href={'https://0xraces-comp.gitbook.io/0xrace/'}
+            className="flex cursor-pointer items-center space-x-[8px]"
+            target="_blank"
+          >
+            <img
+              className="animate-move-left-right w-[32px]"
+              src="/assets/game/ic-arrow-right.svg"
+              alt=""
+            />
+            <p className="uppercase">WHITEPAPER</p>
+          </Link>
+
+          <Link
             href={'#'}
             className="flex cursor-pointer items-center space-x-[8px]"
             target="_blank"
@@ -26,6 +39,7 @@ export const HomePage = () => {
             />
             <p className="uppercase">buy token</p>
           </Link>
+
           <Link
             href={'#'}
             className="flex cursor-pointer items-center space-x-[8px]"
