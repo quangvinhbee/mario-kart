@@ -1,6 +1,7 @@
 import { RacePreview } from '@/components/common/RacePreview'
 import { shortenAddress } from '@/lib/helpers/utils'
 import { useMarioKart } from '@/providers/game-provider'
+import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -8,7 +9,6 @@ import { IoReload } from 'react-icons/io5'
 import { NumericFormat } from 'react-number-format'
 import { useAccount } from 'wagmi'
 import { PlayBanner } from '../home/PlayBanner'
-import axios from 'axios'
 
 export enum RaceStatus {
   Preview,
@@ -111,9 +111,9 @@ export const ProfilePage = () => {
                   />
                 </div>
                 <button
-                  className={`cursor-pointer ${depositLoad && 'opacity-60'}`}
+                  className={`cursor-pointer ${(depositLoad || !depositAmount) && 'opacity-60'}`}
                   onClick={() => depositHandler(depositAmount)}
-                  disabled={depositLoad}
+                  disabled={depositLoad || !depositAmount}
                 >
                   <img className="w-[89px]" src="/assets/game/button-confirm.svg" alt="" />
                 </button>
@@ -133,12 +133,13 @@ export const ProfilePage = () => {
                     alt=""
                   />
                 </div>
-                <img
-                  className="w-[89px] cursor-pointer"
-                  src="/assets/game/button-confirm.svg"
-                  alt=""
+                <button
+                  className={`cursor-pointer ${!withdrawAmount && 'opacity-60'}`}
+                  disabled={!withdrawAmount}
                   onClick={() => withdrawHandler(withdrawAmount)}
-                />
+                >
+                  <img className="w-[89px]" src="/assets/game/button-confirm.svg" alt="" />
+                </button>
               </div>
               <div className="mt-[40px] flex items-center justify-between">
                 <div className="w-[48%]">
