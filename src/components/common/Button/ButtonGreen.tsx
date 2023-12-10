@@ -12,7 +12,7 @@ export const ButtonGreen: FC<IButtonGreenProps> = (props) => {
   return (
     <button
       className={twMerge(
-        'aspect-[223/72] w-[108px] bg-[url(/assets/game/button-green.svg)] bg-no-repeat bg-contain text-[12px] font-retro cursor-pointer transition-all active:translate-y-[2px] disabled:opacity-60 disabled:active:translate-y-0',
+        'aspect-[223/72] w-[108px] bg-[url(/assets/game/button-green.svg)] bg-no-repeat bg-contain text-[12px] font-retro cursor-pointer transition-all active:translate-y-[2px] disabled:opacity-60 disabled:active:translate-y-0 disabled:cursor-default',
         className
       )}
       {...other}

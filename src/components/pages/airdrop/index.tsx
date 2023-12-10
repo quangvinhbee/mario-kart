@@ -59,7 +59,7 @@ export const AirdropPage = () => {
           <ButtonGreen
             className="ml-[16px] w-[140px] text-[15px]"
             onClick={() => claim()}
-            disabled={isClaiming}
+            disabled={isClaiming || !claimTestnetToken}
           >
             {isClaiming ? 'Claiming...' : 'Claim'}
           </ButtonGreen>

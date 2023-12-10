@@ -68,9 +68,16 @@ export const CountdownBet = (props: CountdownBetProps) => {
     },
   ])
 
+  const hasBet = betMarioAmount || betYoshiAmount || betBowerAmount || betToadAmount
+
   const onBet = async () => {
     try {
-      if (disableBet || !address) return
+      if (!hasBet) {
+        return
+      }
+      if (disableBet || !address) {
+        return
+      }
       let dataBetting = {
         mario: {
           amount: betMarioAmount,
@@ -323,9 +330,11 @@ export const CountdownBet = (props: CountdownBetProps) => {
             <p className="ml-[8px] text-[48px]">{displayedTime()}</p>
           </div>
           <img
-            className={`animate-move-down-up mx-auto mt-[32px] max-w-[337px] cursor-pointer ${
-              (disableBet || !address) && 'opacity-70'
-            }`}
+            className={
+              `animate-move-down-up mx-auto mt-[32px] max-w-[337px] cursor-pointer` +
+              ` ${disableBet || !address ? 'opacity-70' : ''}` +
+              ` ${hasBet ? '' : 'opacity-70'}`
+            }
             src="/assets/game/button-bet.png"
             alt=""
             onClick={onBet}
